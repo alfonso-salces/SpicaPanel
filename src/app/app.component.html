@@ -1,21 +1,74 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="pagina">
+  <header class="header">
+          <div class="nombre-sitio">
+              <h1 class="escritorio">Spica Panel</h1>
+              <h1 class="movil">SP</h1>
+          </div>
+          <div class="barra">
+              <div class="menu-izquierdo">
+                  <i class="fas fa-arrow-left"></i>
+                  <i class="fas fa-arrow-right"></i>
+              </div>
+              <div class="menu-derecho">
+                  <div class="cerrar caja" >
+                      <a href="#">Cerrar Sesion</a>
+                  </div>
+              </div>
+          </div>
+  </header>
+  <main class="contenedor-principal">
+      <aside class="sidebar">
+              <div class="usuario">
+                  <p>Bienvenid@: <span>Admin</span></p>
+              </div>
+
+              <div class="menu-admin">
+                  <h2>Menú de Administración</h2>
+                  <ul class="menu">
+                      <li>
+                          <a href="#">
+                              <i class="fas fa-address-book"></i>
+                              Usuarios
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <i class="fas fa-archive"></i>
+                              Categorías
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <i class="fas fa-newspaper"></i>
+                              Noticias
+                          </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                            <i class="fas fa-comments"></i>
+                            Comentarios
+                        </a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <i class="fas fa-bell"></i>
+                              Notificaciones
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <i class="fas fa-pencil-alt"></i>
+                              Editar Perfil
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+      </aside>
+      <div class="contenido">
+        <h1>Bienvenido al panel de control de Spica Proyect.</h1>
+        <p>Si haces clic en la flecha de la barra de navegación superior, aparecerá el menú lateral con los datos a los que tienes acceso.</p>
+      </div>
+  </main>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
 <router-outlet></router-outlet>
