@@ -42,4 +42,8 @@ export class AppComponent {
     this.authservice.loggedUser = undefined;
     this.router.navigateByUrl('/');
   }
+
+  isLogged() {
+    return this.authservice.isLogged();
+  }
 }

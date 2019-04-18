@@ -18,10 +18,10 @@
   </header>
   <main class="contenedor-principal">
       <aside class="sidebar">
-              <div class="usuario" *ngIf="!authservice.isLogged()">
+              <div class="usuario" *ngIf="!isLogged()">
                 <p>Bienvenid@: <span>Admin</span></p>
               </div>
-              <div class="usuario" *ngIf="authservice.isLogged()">
+              <div class="usuario" *ngIf="isLogged()">
                 <img src="{{ authservice.loggedUser.image }}">
                 <p>Bienvenid@: <span>{{authservice.loggedUser.nombre}}</span></p>
               </div>
