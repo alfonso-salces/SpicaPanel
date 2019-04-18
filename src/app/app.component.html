@@ -11,15 +11,19 @@
               </div>
               <div class="menu-derecho">
                   <div class="cerrar caja" >
-                      <a href="#">Cerrar Sesion</a>
+                      <a class="cerrar-sesion" (click)="cerrarsesion()">Cerrar Sesion</a>
                   </div>
               </div>
           </div>
   </header>
   <main class="contenedor-principal">
       <aside class="sidebar">
-              <div class="usuario">
-                  <p>Bienvenid@: <span>Admin</span></p>
+              <div class="usuario" *ngIf="!authservice.isLogged()">
+                <p>Bienvenid@: <span>Admin</span></p>
+              </div>
+              <div class="usuario" *ngIf="authservice.isLogged()">
+                <img src="{{ authservice.loggedUser.image }}">
+                <p>Bienvenid@: <span>{{authservice.loggedUser.nombre}}</span></p>
               </div>
 
               <div class="menu-admin">
@@ -65,10 +69,7 @@
               </div>
       </aside>
       <div class="contenido">
-        <h1>Bienvenido al panel de control de Spica Proyect.</h1>
-        <p>Si haces clic en la flecha de la barra de navegación superior, aparecerá el menú lateral con los datos a los que tienes acceso.</p>
+        <router-outlet></router-outlet>
       </div>
   </main>
 </div>
-
-<router-outlet></router-outlet>

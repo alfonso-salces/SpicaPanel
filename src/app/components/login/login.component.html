@@ -1,0 +1,16 @@
+<div class="login-container">
+  <div class="login-header">
+    <h1 title="login">Iniciar Sesión</h1>
+  </div>
+  <div class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input type="email" placeholder="Email" id="email" name="email" formControlName="email"/>
+      <br /><br />
+      <input type="password" placeholder="Contraseña" id="password" name="password" formControlName="password"/>
+      <br /><br />
+      <input value="Iniciar Sesión" type="submit"/>
+      <br /><br />
+    </form>
+    <small id="emailHelp" class="mensaje-error" *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
+  </div>
+</div>

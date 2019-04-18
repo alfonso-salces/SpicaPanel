@@ -1,4 +1,7 @@
 import { AfterViewInit, Component, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { Usuario } from './models/usuario';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +10,7 @@ import { AfterViewInit, Component, ElementRef } from '@angular/core';
 })
 export class AppComponent {
   title = 'spica-panel';
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef, private router: Router, private authservice: AuthService) {}
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
@@ -33,5 +36,10 @@ export class AppComponent {
          (<HTMLElement>document.querySelector('.fa-arrow-left')).style.display = 'block';
     }
   }
-}
 
+  cerrarsesion() {
+    sessionStorage.removeItem('token');
+    this.authservice.loggedUser = undefined;
+    this.router.navigateByUrl('/');
+  }
+}

@@ -1,7 +1,6 @@
 /** Media Queries **/
-html {
-    box-sizing: border-box;
-    height: 100%; }
+
+@import url('https://fonts.googleapis.com/css?family=Oswald');
   
   *,
   *:after,
@@ -38,6 +37,7 @@ html {
     display: flex; }
     .header .nombre-sitio {
       flex: 0 0 5rem;
+      font-family: 'Oswald', sans-serif;
       background-color: #730A0A;
       padding-left: 1rem; }
       @media only screen and (min-width: 1024px) {
@@ -94,6 +94,7 @@ html {
     margin-left: -20rem; }
   
   .sidebar {
+    font-family: 'Oswald', sans-serif;
     transition: margin-left .3s ease;
     background-color: #373737;
     flex: 0 0 20rem;
@@ -105,7 +106,9 @@ html {
       justify-content: space-around;
       font-weight: bold; }
       .sidebar .usuario img {
-        max-width: 60px; }
+        width:70px;
+        height:150px;
+        border-radius:50%;}
       .sidebar .usuario span {
         display: block;
         font-weight: normal; }
@@ -190,3 +193,6 @@ html {
           .formulario .campo.enviar .boton:hover {
             cursor: pointer;
             background-color: #003e6c; }
+            .cerrar-sesion {
+              font-family: 'Oswald', sans-serif;
+            }
