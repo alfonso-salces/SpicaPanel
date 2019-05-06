@@ -1,49 +1,43 @@
-import { AfterViewInit, Component, ElementRef } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { Usuario } from './models/usuario';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss', './scss/app.scss'],
+  styleUrls: ['./app.component.scss'],
+  providers: [AuthService],
 })
 export class AppComponent {
   title = 'spica-panel';
+
+  showSucessMessage: boolean;
+  serverErrorMessages: string;
+  // tslint:disable-next-line:max-line-length
+  emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  loginForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
+
   constructor(private elementRef: ElementRef, private router: Router, private authservice: AuthService) {}
 
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngAfterViewInit() {
-    this.elementRef.nativeElement.querySelector('.menu-izquierdo')
-                                  .addEventListener('click', this.onClick.bind(this));
+  onSubmit() {
+    this.serverErrorMessages = '';
+    this.authservice.login(this.loginForm.value).subscribe(
+      res => {
+        sessionStorage.setItem('token', res['token']);
+        this.router.navigateByUrl('/profile');
+        this.showSucessMessage = true;
+      },
+      error => {
+        this.serverErrorMessages = error.error;
+      }
+    );
+    this.loginForm['email'] = '';
+    this.loginForm['password'] = '';
   }
 
-  onClick(event) {
-    const claseMenu = event.target.classList;
-    // Selecciona el contenedor
-    const contenedor = document.querySelector('.pagina'),
-          flechaIzq = document.querySelector('.fa-arrow-left'),
-          flechaDer = document.querySelector('.fa-arrow-right');
-
-    if (claseMenu.contains('fa-arrow-left') ) {
-         // cerrar el menĂº lateral
-         contenedor.classList.add('no-menu');
-         event.target.style.display = 'none';
-         (<HTMLElement>document.querySelector('.fa-arrow-right')).style.display = 'block';
-    } else if (claseMenu.contains('fa-arrow-right')) {
-         contenedor.classList.remove('no-menu');
-         event.target.style.display = 'none';
-         (<HTMLElement>document.querySelector('.fa-arrow-left')).style.display = 'block';
-    }
-  }
-
-  cerrarsesion() {
-    sessionStorage.removeItem('token');
-    this.authservice.loggedUser = undefined;
-    this.router.navigateByUrl('/');
-  }
-
-  isLogged() {
-    return this.authservice.isLogged();
-  }
 }

@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { ComentariosComponent } from './components/comentarios/comentarios.component';
 import { NoticiasComponent } from './components/noticias/noticias.component';
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { HomeComponent } from './components/home/home.component';
+import { UserprofileComponent } from './components/userprofile/userprofile.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent,
+    component: HomeComponent,
   },
   {
-    path: 'home',
-    component: HomeComponent,
+    path: 'profile',
+    component: UserprofileComponent,
   },
   {
     path: 'categorias',

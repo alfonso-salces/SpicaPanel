@@ -48,12 +48,35 @@ export class AuthService {
     }
   }
 
+  cargarUsuario() {
+    return this.loggedUser;
+  }
+
   isLogged() {
-    if (this.loggedUser !== undefined || this.loggedUser !== null) {
+    if (this.getToken()) {
       return true;
     } else {
       return false;
     }
+  }
+
+  onLogout() {
+    this.deleteToken();
+    this.router.navigate(['/']);
+  }
+
+  getToken() {
+    this.token = sessionStorage.getItem('token');
+    return this.token;
+  }
+
+  setToken(token: string) {
+    sessionStorage.setItem('token', token);
+  }
+
+  deleteToken() {
+    sessionStorage.removeItem('token');
+    this.token = '';
   }
 
 }

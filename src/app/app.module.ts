@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { NoticiasComponent } from './components/noticias/noticias.component';
@@ -13,18 +12,19 @@ import { NotificacionesComponent } from './components/notificaciones/notificacio
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { UserprofileComponent } from './components/userprofile/userprofile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     UsuariosComponent,
     CategoriasComponent,
     NoticiasComponent,
     ComentariosComponent,
     NotificacionesComponent,
     HomeComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    UserprofileComponent,
   ],
   imports: [
     BrowserModule,
