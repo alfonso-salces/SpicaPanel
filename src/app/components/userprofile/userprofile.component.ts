@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Usuario } from 'src/app/models/usuario';
 
 @Component({
   selector: 'app-userprofile',
@@ -11,17 +12,16 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class UserprofileComponent implements OnInit {
 
-  usuariologged;
+  usuarioActivo: Usuario;
 
   constructor(private router: Router, private authservice: AuthService) { }
 
   ngOnInit() {
-    this.cargardatos();
+    this.cargarDatos();
   }
 
-  cargardatos() {
-    this.usuariologged = this.authservice.loggedUser;
-    console.log(this.usuariologged);
+  cargarDatos() {
+    this.usuarioActivo = this.authservice.extraertoken();
   }
 
 }

@@ -50,7 +50,7 @@
                 <input type="password" placeholder="Contraseña" id="password" name="password" formControlName="password">
               </div>
 
-              <button value="Iniciar Sesión" type="submit">Login</button>
+              <button value="Iniciar Sesión" class="btn btn-danger" type="submit">Login</button>
               <small id="emailHelp" class="form-text text-danger" *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
               <small id="emailHelp" class="form-text text-success" *ngIf="showSucessMessage">¡Has iniciado sesión correctamente!</small>
             </form>
@@ -72,7 +72,7 @@
 
 <router-outlet></router-outlet>
 
-<div>
+<div class="posicionfooter">
 
   <ul class="nav justify-content-center bg-secondary mt-5">
     <li class="nav-item">

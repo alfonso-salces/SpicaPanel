@@ -44,7 +44,7 @@ export class AuthService {
       this.loggedUser.email = decodedToken['email'];
       this.loggedUser.image = this.URL_IMG + this.idusuario + '/' + decodedToken['image'];
       this.loggedUser.rol = decodedToken['rol'];
-      return decodedToken;
+      return this.loggedUser;
     }
   }
 
