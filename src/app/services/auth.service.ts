@@ -30,13 +30,13 @@ export class AuthService {
     return this.http.post(this.URL_API + '/login', fromData, this.noAuthHeader);
   }
 
-  editProfile(credenciales) {
+  editProfile(credenciales, fichero) {
     const editProfile = new FormData();
     editProfile.append('nick', credenciales['nick']);
     editProfile.append('email', credenciales['email']);
     editProfile.append('password', credenciales['password']);
     editProfile.append('nombre', credenciales['nombre']);
-    editProfile.append('image', credenciales['image']);
+    editProfile.append('image', fichero, fichero.name);
     return this.http.put(this.URL_API + '/users/' + this.idusuario, editProfile, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.getToken())
     });

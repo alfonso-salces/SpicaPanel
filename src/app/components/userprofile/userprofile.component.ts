@@ -13,13 +13,14 @@ import { Usuario } from 'src/app/models/usuario';
 export class UserprofileComponent implements OnInit {
 
   usuarioActivo: Usuario;
+  fichero: File = null;
 
   editProfileForm = new FormGroup({
     nick: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
     nombre: new FormControl(''),
-    image: new FormControl(''),
+    image: new FormControl(),
   });
 
   serverErrorMessages: string;
@@ -36,9 +37,14 @@ export class UserprofileComponent implements OnInit {
     this.usuarioActivo = this.authservice.extraertoken();
   }
 
+  onFileSelected(event) {
+    this.fichero = <File>event.target.files[0];
+    this.editProfileForm.get('image').setValue(this.fichero, this.fichero.name);
+  }
+
   onSubmit() {
     this.serverErrorMessages = '';
-    this.authservice.editProfile(this.editProfileForm.value).subscribe(
+    this.authservice.editProfile(this.editProfileForm.value, this.fichero).subscribe(
       res => {
         console.log(res);
         this.router.navigateByUrl('/profile');

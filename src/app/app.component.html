@@ -62,9 +62,6 @@
         </div>
 
       </li>
-      <li class="nav-item active enlaces-bl" *ngIf="authservice.isLogged()">
-        <a class="nav-link" routerLink="/" (click)="authservice.onLogout()">Cerrar Sesión</a>
-      </li>
       <li class="nav-item active enlaces-bl" *ngIf="authservice.isAdmin()">
         <a class="nav-link" routerLink="/usuarios">Usuarios</a>
       </li>
@@ -73,6 +70,12 @@
       </li>
       <li class="nav-item active enlaces-bl" *ngIf="authservice.isAdmin()">
         <a class="nav-link" routerLink="/noticias">Noticias</a>
+      </li>
+      <li class="nav-item active enlaces-bl" *ngIf="authservice.isLogged()">
+        <a class="nav-link" routerLink="/profile">Mi Perfil</a>
+      </li>
+      <li class="nav-item active enlaces-bl " *ngIf="authservice.isLogged()">
+        <a class="nav-link" routerLink="/" (click)="authservice.onLogout()">Cerrar Sesión</a>
       </li>
     </ul>
 
@@ -98,11 +101,10 @@
 
   <div class="bg-dark">
 
-    <p class="text-light text-center pt-2">En SpicaProyect nos encaragamos de ofrecerte los mejores cursos online en
-      español.</p>
+    <p class="text-light text-center pt-2">Gestiona tus contenidos con nosotros.</p>
     <ul class="nav justify-content-center">
       <li class="nav-item">
-        <a class="nav-link text-light enlaces-bl" href="https://github.com/Arfonzo2k18">© 2019 - Arfonzo</a>
+        <a class="nav-link text-light enlaces-bl" href="https://github.com/Arfonzo2k18">© 2019 - Alfonso Salces</a>
       </li>
     </ul>
 

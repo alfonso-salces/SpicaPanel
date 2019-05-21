@@ -14,8 +14,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     if (this.authservice.extraertoken() == null) {
       this.router.navigateByUrl('/');
-    } else {
-      console.log(this.authservice.extraertoken());
     }
   }
 
