@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
-import { EdituserComponent } from './components/usuarios/edit/edituser/edituser.component';
+import { FormuserComponent } from './components/formuser/formuser.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { EdituserComponent } from './components/usuarios/edit/edituser/edituser.
     HomeComponent,
     NotfoundComponent,
     UserprofileComponent,
-    EdituserComponent,
+    FormuserComponent
   ],
   imports: [
     BrowserModule,

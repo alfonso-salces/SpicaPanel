@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Output, Input, OnInit, EventEmitter } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
+import { CATCH_STACK_VAR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
-  selector: 'app-userprofile',
-  templateUrl: './userprofile.component.html',
-  styleUrls: ['./userprofile.component.scss'],
-  providers: [AuthService],
+  selector: 'app-formuser',
+  templateUrl: './formuser.component.html',
+  styleUrls: ['./formuser.component.scss']
 })
-export class UserprofileComponent implements OnInit {
-
-  usuarioActivo: Usuario;
+export class FormuserComponent implements OnInit {
+  @Input() cascando: boolean;
+  @Output() enviar: EventEmitter<any> = new EventEmitter();
   fichero: File = null;
+  usuarioActivo: Usuario;
 
   editProfileForm = new FormGroup({
     nick: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     nombre: new FormControl('', Validators.required),
+    rol: new FormControl('admin'),
     image: new FormControl(),
   });
 
@@ -28,10 +29,10 @@ export class UserprofileComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  constructor(private router: Router, private authservice: AuthService) { }
+  constructor(private authservice: AuthService) { }
 
   ngOnInit() {
-    this.cargarDatos();
+    console.log(this.cascando);
   }
 
   cargarDatos() {
@@ -43,11 +44,8 @@ export class UserprofileComponent implements OnInit {
     this.editProfileForm.get('image').setValue(this.fichero, this.fichero.name);
   }
 
-  handleclick(event) {
-    console.log('te vas a pasar o que');
-  }
-
   onSubmit() {
+    this.enviar.emit('hola');
     if (this.fichero != null) {
       this.showSuccessMessage = false;
       this.authservice.editProfile(this.editProfileForm.value, this.fichero).subscribe(
@@ -63,6 +61,7 @@ export class UserprofileComponent implements OnInit {
           console.log(err);
           this.serverErrorMessages = err.error.errors[0].mesage;
         }
+
       );
     } else {
       this.authservice.editProfile(this.editProfileForm.value, null).subscribe(
