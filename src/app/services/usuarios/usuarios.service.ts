@@ -24,7 +24,9 @@ export class UsuariosService {
     });
   }
 
-  getUser() {
+  getUser(id) {
+    let cuerpo = new FormData();
+    cuerpo.append('id', id);
     return this.http.get(this.URL_API + '/profile', {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
     });
@@ -38,8 +40,10 @@ export class UsuariosService {
 
   }
 
-  deleteUser() {
-
+  deleteUser(id) {
+    return this.http.delete(this.URL_API + '/users/' + id, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
+    });
   }
 
 }

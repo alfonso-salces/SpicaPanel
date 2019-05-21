@@ -56,12 +56,15 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">
               Cancelar
             </button>
-            <button type="button" class="btn btn-primary" type="submit">Editar Perfil</button>
+            <button type="button" class="btn btn-primary" type="submit">Editar
+              Perfil</button>
           </div>
         </form>
       </div>
-      <small id="emailHelp" class="form-text text-danger" *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
-      <small id="emailHelp" class="form-text text-success" *ngIf="showSucessMessage">¡Has editado tu perfil
+      <small id="emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
+        *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
+      <small id="emailHelp" class="form-text text-success text-center font-weight-bold text-uppercase mb-3"
+        *ngIf="showSuccessMessage">¡Has editado tu perfil
         correctamente!</small>
     </div>
   </div>

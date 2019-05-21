@@ -6,6 +6,7 @@ import { NoticiasComponent } from './components/noticias/noticias.component';
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { EdituserComponent } from './components/usuarios/edit/edituser/edituser.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
 
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'usuarios',
     component: UsuariosComponent,
+  },
+  {
+    path: 'edituser/:id',
+    component: EdituserComponent,
   },
   {
     path: 'not-found',

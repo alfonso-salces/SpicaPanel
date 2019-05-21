@@ -17,7 +17,7 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody *ngFor="let user of usuarios">
+    <tbody *ngFor="let user of usuarios; let i = index">
       <tr scope="row">
         <td>{{user.id}}</td>
         <td>{{user.nick}}</td>
@@ -27,9 +27,9 @@
         <td>{{user.rol}}</td>
         <td>{{user.createdAt}}</td>
         <td>
-          <i class="fas fa-edit mr-2 text-success"></i>
-          <i class="fas fa-trash-alt mr-2 text-danger"></i>
-          <i class="fas fa-eye mr-2 text-primary"></i>
+          <a routerLink="edituser/{{user.id}}"><i class="fas fa-edit mr-2 text-success"></i></a>
+          <a (click)="eliminarUsuario(user, i)"><i class="fas fa-trash-alt mr-2 text-danger"></i></a>
+          <a routerLink="user/{{user.id}}"><i class="fas fa-eye mr-2 text-primary"></i></a>
         </td>
       </tr>
     </tbody>

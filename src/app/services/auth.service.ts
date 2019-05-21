@@ -31,22 +31,31 @@ export class AuthService {
   }
 
   editProfile(credenciales, fichero) {
-    const editProfile = new FormData();
-    editProfile.append('nick', credenciales['nick']);
-    editProfile.append('email', credenciales['email']);
-    editProfile.append('password', credenciales['password']);
-    editProfile.append('nombre', credenciales['nombre']);
-    editProfile.append('image', fichero, fichero.name);
-    return this.http.put(this.URL_API + '/users/' + this.idusuario, editProfile, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.getToken())
-    });
+    if (fichero != null) {
+      const editProfile = new FormData();
+      editProfile.append('nick', credenciales['nick']);
+      editProfile.append('email', credenciales['email']);
+      editProfile.append('password', credenciales['password']);
+      editProfile.append('nombre', credenciales['nombre']);
+      editProfile.append('image', fichero, fichero.name);
+      return this.http.put(this.URL_API + '/users/' + this.idusuario, editProfile, {
+        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.getToken())
+      });
+    } else {
+      const editProfile = new FormData();
+      editProfile.append('nick', credenciales['nick']);
+      editProfile.append('email', credenciales['email']);
+      editProfile.append('password', credenciales['password']);
+      editProfile.append('nombre', credenciales['nombre']);
+      return this.http.put(this.URL_API + '/users/' + this.idusuario, editProfile, {
+        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.getToken())
+      });
+    }
   }
 
   extraertoken() {
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(sessionStorage.getItem('token'));
-    const expirationDate = helper.getTokenExpirationDate(sessionStorage.getItem('token'));
-    const isExpired = helper.isTokenExpired(sessionStorage.getItem('token'));
     if (decodedToken == null) {
       return null;
     } else {
