@@ -18,16 +18,28 @@ export class AuthService {
   readonly URL_IMG = 'http://localhost:3000/public/img/uploads/usuarios/';
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
-  fromData = new FormData();
 
-  constructor (private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(credenciales) {
-    this.fromData.delete('email');
-    this.fromData.delete('password');
-    this.fromData.append('email', credenciales['email']);
-    this.fromData.append('password', credenciales['password']);
-    return this.http.post(this.URL_API + '/login', this.fromData, this.noAuthHeader);
+    const fromData = new FormData();
+    fromData.delete('email');
+    fromData.delete('password');
+    fromData.append('email', credenciales['email']);
+    fromData.append('password', credenciales['password']);
+    return this.http.post(this.URL_API + '/login', fromData, this.noAuthHeader);
+  }
+
+  editProfile(credenciales) {
+    const editProfile = new FormData();
+    editProfile.append('nick', credenciales['nick']);
+    editProfile.append('email', credenciales['email']);
+    editProfile.append('password', credenciales['password']);
+    editProfile.append('nombre', credenciales['nombre']);
+    editProfile.append('image', credenciales['image']);
+    return this.http.put(this.URL_API + '/users/' + this.idusuario, editProfile, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.getToken())
+    });
   }
 
   extraertoken() {
@@ -60,7 +72,32 @@ export class AuthService {
     }
   }
 
+  isAdmin() {
+    if (this.loggedUser.rol === 'admin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isRedactor() {
+    if (this.loggedUser.rol === 'redactor') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isModerador() {
+    if (this.loggedUser.rol === 'moderador') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   onLogout() {
+    this.loggedUser = new Usuario();
     this.deleteToken();
     this.router.navigate(['/']);
   }

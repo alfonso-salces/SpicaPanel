@@ -1,3 +1,37 @@
-<p>
-  usuarios works!
-</p>
+<div class="container">
+
+  <div class="cajon-nuevo mb-4">
+    <button class="btn bg-info text-white"><i class="fas fa-plus"> Crear nuevo usuario</i></button>
+  </div>
+
+  <table class="table">
+    <thead class="bg-danger text-white">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nick</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Email</th>
+        <th scope="col">Imagen</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Fecha creación</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let user of usuarios">
+      <tr scope="row">
+        <td>{{user.id}}</td>
+        <td>{{user.nick}}</td>
+        <td>{{user.nombre}}</td>
+        <td>{{user.email}}</td>
+        <td><img src="{{ usuariosservice.URL_IMG + user.id + '/' + user.image }}" height="30" width="30"></td>
+        <td>{{user.rol}}</td>
+        <td>{{user.createdAt}}</td>
+        <td>
+          <i class="fas fa-edit mr-2 text-success"></i>
+          <i class="fas fa-trash-alt mr-2 text-danger"></i>
+          <i class="fas fa-eye mr-2 text-primary"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -23,7 +23,7 @@ export class AppComponent {
     password: new FormControl(''),
   });
 
-  constructor(private elementRef: ElementRef, private router: Router, private authservice: AuthService) {}
+  constructor(private router: Router, private authservice: AuthService) { }
 
   onSubmit() {
     this.serverErrorMessages = '';
@@ -34,6 +34,7 @@ export class AppComponent {
         this.loginForm['email'] = '';
         this.loginForm['password'] = '';
         this.loginForm.reset();
+        this.authservice.extraertoken();
       },
       error => {
         this.serverErrorMessages = error.error;
