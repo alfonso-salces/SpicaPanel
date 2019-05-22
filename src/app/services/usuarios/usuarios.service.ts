@@ -32,12 +32,17 @@ export class UsuariosService {
     });
   }
 
-  createUser() {
-
-  }
-
-  editUser() {
-
+  createUser(credenciales, fichero) {
+    let cuerpo = new FormData();
+    cuerpo.append('nick', credenciales['nick']);
+    cuerpo.append('email', credenciales['email']);
+    cuerpo.append('password', credenciales['password']);
+    cuerpo.append('nombre', credenciales['nombre']);
+    cuerpo.append('rol', credenciales['rol']);
+    cuerpo.append('image', fichero, fichero.name);
+    return this.http.post(this.URL_API + '/register', cuerpo, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
+    });
   }
 
   deleteUser(id) {

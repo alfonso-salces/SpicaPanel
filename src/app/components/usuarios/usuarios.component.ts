@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
-import { Usuario } from 'src/app/models/usuario';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuarios',
@@ -11,13 +8,22 @@ import { Router } from '@angular/router';
 })
 export class UsuariosComponent implements OnInit {
 
+  orden: any;
   usuario: any;
   usuarios: any[];
 
-  constructor(private authservice: AuthService, private router: Router, private usuariosservice: UsuariosService) { }
+  constructor(private usuariosservice: UsuariosService) { }
 
   ngOnInit() {
     this.cargarUsuarios();
+    this.comprobarRefresco(event);
+  }
+
+  comprobarRefresco(event) {
+    if (event == 'true') {
+      this.cargarUsuarios();
+    }
+    console.log(this.usuarios);
   }
 
   cargarUsuarios() {

@@ -1,8 +1,8 @@
 import { Component, Output, Input, OnInit, EventEmitter } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
-import { CATCH_STACK_VAR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-formuser',
@@ -10,12 +10,22 @@ import { CATCH_STACK_VAR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./formuser.component.scss']
 })
 export class FormuserComponent implements OnInit {
-  @Input() cascando: boolean;
-  @Output() enviar: EventEmitter<any> = new EventEmitter();
+  @Input() editar: boolean;
+  @Input() crear: boolean;
+  @Output() refrescar = new EventEmitter<any>();
   fichero: File = null;
   usuarioActivo: Usuario;
 
-  editProfileForm = new FormGroup({
+  EditUserForm = new FormGroup({
+    nick: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    nombre: new FormControl('', Validators.required),
+    rol: new FormControl('admin'),
+    image: new FormControl(),
+  });
+
+  CreateUserForm = new FormGroup({
     nick: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
@@ -29,33 +39,41 @@ export class FormuserComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  constructor(private authservice: AuthService) { }
+  constructor(private authservice: AuthService, private usuariosservice: UsuariosService) { }
 
-  ngOnInit() {
-    console.log(this.cascando);
-  }
+  ngOnInit() { }
 
   cargarDatos() {
     this.usuarioActivo = this.authservice.extraertoken();
   }
 
-  onFileSelected(event) {
+  limpiarMensaje() {
+    this.showSuccessMessage = false;
+    this.serverErrorMessages = '';
+  }
+
+  onFileSelectedEdit(event) {
     this.fichero = <File>event.target.files[0];
-    this.editProfileForm.get('image').setValue(this.fichero, this.fichero.name);
+    this.EditUserForm.get('image').setValue(this.fichero, this.fichero.name);
+  }
+
+  onFileSelectedCreate(event) {
+    this.fichero = <File>event.target.files[0];
+    this.CreateUserForm.get('image').setValue(this.fichero, this.fichero.name);
   }
 
   onSubmit() {
-    this.enviar.emit('hola');
+
     if (this.fichero != null) {
       this.showSuccessMessage = false;
-      this.authservice.editProfile(this.editProfileForm.value, this.fichero).subscribe(
+      this.authservice.editProfile(this.EditUserForm.value, this.fichero).subscribe(
         res => {
           this.serverErrorMessages = '';
           this.showSuccessMessage = true;
-          this.editProfileForm.reset();
+          this.EditUserForm.reset();
           this.authservice.deleteToken();
           this.authservice.setToken(res['token']);
-          this.cargarDatos();
+          this.refrescar.emit('true');
         },
         err => {
           console.log(err);
@@ -64,20 +82,40 @@ export class FormuserComponent implements OnInit {
 
       );
     } else {
-      this.authservice.editProfile(this.editProfileForm.value, null).subscribe(
+      this.authservice.editProfile(this.EditUserForm.value, null).subscribe(
         res => {
           this.serverErrorMessages = '';
           this.showSuccessMessage = true;
-          this.editProfileForm.reset();
+          this.EditUserForm.reset();
           this.authservice.deleteToken();
           this.authservice.setToken(res['token']);
-          this.cargarDatos();
+          this.refrescar.emit('true');
         },
         err => {
           console.log(err);
           this.serverErrorMessages = err.error.errors[0].message;
         }
       );
+    }
+  }
+
+  onCreate() {
+    if (this.fichero != null) {
+      this.showSuccessMessage = false;
+      this.usuariosservice.createUser(this.CreateUserForm.value, this.fichero).subscribe(
+        res => {
+          this.serverErrorMessages = '';
+          this.showSuccessMessage = true;
+          this.CreateUserForm.reset();
+          this.refrescar.emit('true');
+        },
+        err => {
+          console.log(err);
+          this.serverErrorMessages = err.error.errors[0].mesage;
+        }
+      );
+    } else {
+      this.serverErrorMessages = 'Introduce una imagen, por favor.';
     }
   }
 

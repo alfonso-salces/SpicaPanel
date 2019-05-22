@@ -1,10 +1,12 @@
 <div class="container">
 
   <div class="cajon-nuevo mb-4">
-    <button class="btn bg-info text-white"><i class="fas fa-plus"> Crear nuevo usuario</i></button>
+    <button class="btn bg-info text-white" data-toggle="modal" data-target="#crear-usuario-modal"><i
+        class="fas fa-plus"> Crear
+        nuevo usuario</i></button>
   </div>
 
-  <table class="table">
+  <table class="table table-bordered table-hover">
     <thead class="bg-danger text-white">
       <tr>
         <th scope="col">Id</th>
@@ -27,13 +29,13 @@
         <td>{{user.rol}}</td>
         <td>{{user.createdAt}}</td>
         <td>
-          <a data-toggle="modal" data-target="#exampleModal"><i class="fas fa-edit mr-2 text-success"></i></a>
+          <a data-toggle="modal" data-target="#editar-usuario-modal"><i class="fas fa-edit mr-2 text-success"></i></a>
           <a (click)="eliminarUsuario(user, i)"><i class="fas fa-trash-alt mr-2 text-danger"></i></a>
-          <a routerLink="user/{{user.id}}"><i class="fas fa-eye mr-2 text-primary"></i></a>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<app-formuser cascando="true"></app-formuser>
+<app-formuser editar="true" (refrescar)="comprobarRefresco($event)"></app-formuser>
+<app-formuser crear="true" (refrescar)="comprobarRefresco($event)"></app-formuser>

@@ -1,15 +1,18 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- MODAL EDITAR USUARIO -->
+
+<div class="modal fade" id="editar-usuario-modal" tabindex="-1" role="dialog" aria-labelledby="editar-usuario-modal"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        <h5 class="modal-title" id="editar-usuario-modal">Editar Perfil</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarMensaje()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="EditUserForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="name" class="col-form-label">Nick:</label>
             <input type="text" class="form-control" formControlName="nick" id="nick" />
@@ -26,24 +29,27 @@
             <label for="nombre" class="col-form-label">Nombre:</label>
             <input type="text" class="form-control" formControlName="nombre" id="nombre" />
           </div>
-          <div class="form-group" *ngIf="cascando">
+          <div class="form-group" *ngIf="editar">
             <label for="rol">Rol: </label>
             <select class="form-control" id="rol">
-              <option class="form-control" formControlName="admin" id="admin">Admin</option>
-              <option class="form-control" formControlName="moderador" id="moderador">Moderador</option>
-              <option class="form-control" formControlName="redactor" id="redactor">Redactor</option>
-              <option class="form-control" formControlName="usuario" id="usuario">Usuario</option>
+              <option class="form-control" formControlName="rol" id="rol" value="admin" name="admin">Admin</option>
+              <option class="form-control" formControlName="rol" id="rol" value="moderador" name="moderador">Moderador
+              </option>
+              <option class="form-control" formControlName="rol" id="rol" value="redactor" name="redactor">Redactor
+              </option>
+              <option class="form-control" formControlName="rol" id="rol" value="usuario" name="usuario">Usuario
+              </option>
             </select>
           </div>
           <div class="input-group">
             <div class="custom-file">
               <input type="file" class="custom-file-input" formControlName="image" id="image"
-                (change)="onFileSelected($event)">
+                (change)="onFileSelectedEdit($event)">
               <label class="custom-file-label" for="image">Selecciona fichero</label>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="limpiarMensaje()">
               Cancelar
             </button>
             <button type="button" class="btn btn-primary" type="submit">Editar
@@ -56,6 +62,72 @@
       <small id="emailHelp" class="form-text text-success text-center font-weight-bold text-uppercase mb-3"
         *ngIf="showSuccessMessage">¡Has editado tu perfil
         correctamente!</small>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CREAR USUARIO -->
+
+<div class="modal fade" id="crear-usuario-modal" tabindex="-1" role="dialog" aria-labelledby="crear-usuario-modal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="crear-usuario-modal">Crear Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarMensaje()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="CreateUserForm" (ngSubmit)="onCreate()">
+          <div class="form-group">
+            <label for="name" class="col-form-label">Nick:</label>
+            <input type="text" class="form-control" formControlName="nick" id="nick" />
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-form-label">Email:</label>
+            <input type="email" class="form-control" formControlName="email" id="email" />
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-form-label">Password:</label>
+            <input type="password" class="form-control" formControlName="password" id="password" />
+          </div>
+          <div class="form-group">
+            <label for="nombre" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" formControlName="nombre" id="nombre" />
+          </div>
+          <div class="form-group" *ngIf="crear">
+            <label for="rol">Rol: </label>
+            <select class="form-control" id="rol">
+              <option class="form-control" formControlName="rol" id="rol" value="admin" name="admin">Admin</option>
+              <option class="form-control" formControlName="rol" id="rol" value="moderador" name="moderador">Moderador
+              </option>
+              <option class="form-control" formControlName="rol" id="rol" value="redactor" name="redactor">Redactor
+              </option>
+              <option class="form-control" formControlName="rol" id="rol" value="usuario" name="usuario">Usuario
+              </option>
+            </select>
+          </div>
+          <div class="input-group">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" formControlName="image" id="image"
+                (change)="onFileSelectedCreate($event)">
+              <label class="custom-file-label" for="image">Selecciona fichero</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="limpiarMensaje()">
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" type="submit">Crear Usuario</button>
+          </div>
+        </form>
+      </div>
+      <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
+        *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
+      <small id="emailHelp" class="form-text text-success text-center font-weight-bold text-uppercase mb-3"
+        *ngIf="showSuccessMessage">¡El usuario ha sido creado correctamente!</small>
     </div>
   </div>
 </div>
