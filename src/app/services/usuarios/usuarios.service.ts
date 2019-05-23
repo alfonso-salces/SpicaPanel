@@ -45,6 +45,30 @@ export class UsuariosService {
     });
   }
 
+
+  editUser(id, credenciales, fichero) {
+    if (fichero != null) {
+      const editProfile = new FormData();
+      editProfile.append('nick', credenciales['nick']);
+      editProfile.append('email', credenciales['email']);
+      editProfile.append('password', credenciales['password']);
+      editProfile.append('nombre', credenciales['nombre']);
+      editProfile.append('image', fichero, fichero.name);
+      return this.http.put(this.URL_API + '/users/' + id, editProfile, {
+        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
+      });
+    } else {
+      const editProfile = new FormData();
+      editProfile.append('nick', credenciales['nick']);
+      editProfile.append('email', credenciales['email']);
+      editProfile.append('password', credenciales['password']);
+      editProfile.append('nombre', credenciales['nombre']);
+      return this.http.put(this.URL_API + '/users/' + id, editProfile, {
+        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
+      });
+    }
+  }
+
   deleteUser(id) {
     return this.http.delete(this.URL_API + '/users/' + id, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())

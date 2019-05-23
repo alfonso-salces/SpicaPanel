@@ -1,41 +1,72 @@
 <div class="container">
 
   <div class="cajon-nuevo mb-4">
-    <button class="btn bg-info text-white" data-toggle="modal" data-target="#crear-usuario-modal"><i
-        class="fas fa-plus"> Crear
+    <button class="btn bg-info text-white"><i class="fas fa-plus"> Crear
         nuevo usuario</i></button>
   </div>
+  <div class="row">
 
-  <table class="table table-bordered table-hover">
-    <thead class="bg-danger text-white">
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Nick</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Email</th>
-        <th scope="col">Imagen</th>
-        <th scope="col">Rol</th>
-        <th scope="col">Fecha creación</th>
-        <th scope="col">Acciones</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let user of usuarios; let i = index">
-      <tr scope="row">
-        <td>{{user.id}}</td>
-        <td>{{user.nick}}</td>
-        <td>{{user.nombre}}</td>
-        <td>{{user.email}}</td>
-        <td><img src="{{ usuariosservice.URL_IMG + user.id + '/' + user.image }}" height="30" width="30"></td>
-        <td>{{user.rol}}</td>
-        <td>{{user.createdAt}}</td>
-        <td>
-          <a data-toggle="modal" data-target="#editar-usuario-modal"><i class="fas fa-edit mr-2 text-success"></i></a>
-          <a (click)="eliminarUsuario(user, i)"><i class="fas fa-trash-alt mr-2 text-danger"></i></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="col-md-4 mr-3">
+      <table class="table table-bordered table-hover">
+        <thead class="bg-danger text-white">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nick</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let user of usuarios; let i = index">
+          <tr scope="row">
+            <td>{{user.id}}</td>
+            <td>{{user.nick}}</td>
+            <td>{{user.nombre}}</td>
+            <td>
+              <a (click)="editarUsuario(user)"><i class="fas fa-edit mr-2 text-success"></i></a>
+              <a (click)="eliminarUsuario(user, i)"><i class="fas fa-trash-alt mr-2 text-danger"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-6 bg-light shadow-lg rounded">
+      <h3 class="text-center mt-2">Editar usuario</h3>
+      <form [formGroup]="UserForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name" class="col-form-label">Nick:</label>
+          <input type="text" class="form-control" formControlName="nick" id="nick" value="{{usuario.nick}}" />
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-form-label">Email:</label>
+          <input type="email" class="form-control" formControlName="email" id="email" value="{{usuario.email}}" />
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-form-label">Password:</label>
+          <input type="password" class="form-control" formControlName="password" id="password" />
+        </div>
+        <div class="form-group">
+          <label for="nombre" class="col-form-label">Nombre:</label>
+          <input type="text" class="form-control" formControlName="nombre" id="nombre" value="{{usuario.nombre}}" />
+        </div>
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" formControlName="image" id="image"
+              (change)="onFileSelectedEdit($event)">
+            <label class="custom-file-label" for="image">Selecciona fichero</label>
+          </div>
+        </div>
+        <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
+          *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
+        <small id="emailHelp" class="form-text text-success text-center font-weight-bold text-uppercase mb-3"
+          *ngIf="showSuccessMessage">¡El usuario ha sido creado correctamente!</small>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="limpiarFormulario()">
+            Limpiar Formulario
+          </button>
+          <button type="button" class="btn btn-primary" type="submit">Editar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-
-<app-formuser editar="true" (refrescar)="comprobarRefresco($event)"></app-formuser>
-<app-formuser crear="true" (refrescar)="comprobarRefresco($event)"></app-formuser>

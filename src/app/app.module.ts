@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
-import { FormuserComponent } from './components/formuser/formuser.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { FormuserComponent } from './components/formuser/formuser.component';
     NotificacionesComponent,
     HomeComponent,
     NotfoundComponent,
-    UserprofileComponent,
-    FormuserComponent
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,
