@@ -16,8 +16,10 @@ export class UsuariosComponent implements OnInit {
   usuario: any;
   usuarios: any[];
   fichero: File = null;
+  ficheroCrear: File = null;
 
   showSuccessMessage = false;
+  showSuccessMessageCreate = false;
   serverErrorMessages: string;
   // tslint:disable-next-line:max-line-length
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -27,6 +29,15 @@ export class UsuariosComponent implements OnInit {
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     nombre: new FormControl('', Validators.required),
+    image: new FormControl(),
+  });
+
+  CreateUserForm = new FormGroup({
+    nick: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    nombre: new FormControl('', Validators.required),
+    rol: new FormControl('', Validators.required),
     image: new FormControl(),
   });
 
@@ -40,6 +51,11 @@ export class UsuariosComponent implements OnInit {
   onFileSelected(event) {
     this.fichero = <File>event.target.files[0];
     this.UserForm.get('image').setValue(this.fichero, this.fichero.name);
+  }
+
+  onFileSelectedCreate(event) {
+    this.ficheroCrear = <File>event.target.files[0];
+    this.CreateUserForm.get('image').setValue(this.ficheroCrear, this.ficheroCrear.name);
   }
 
   cargarUsuarios() {
@@ -70,7 +86,7 @@ export class UsuariosComponent implements OnInit {
       error => {
         console.log(error);
       }
-    )
+    );
   }
 
   onSubmit() {
@@ -81,6 +97,40 @@ export class UsuariosComponent implements OnInit {
           this.serverErrorMessages = '';
           this.showSuccessMessage = true;
           this.UserForm.reset();
+          this.cargarUsuarios();
+          M.toast({ html: 'Updated successfully', classes: 'rounded' });
+        },
+        err => {
+          console.log(err);
+          this.serverErrorMessages = err.error.errors[0].mesage;
+        }
+      );
+    } else {
+      this.usuariosservice.editUser(this.usuario.id, this.UserForm.value, null).subscribe(
+        res => {
+          this.serverErrorMessages = '';
+          this.showSuccessMessage = true;
+          this.UserForm.reset();
+          this.cargarUsuarios();
+          M.toast({ html: 'Updated successfully', classes: 'rounded' });
+        },
+        err => {
+          console.log(err);
+          this.serverErrorMessages = err.error.errors[0].mesage;
+        }
+      );
+    }
+  }
+
+  onCreate() {
+    if (this.ficheroCrear != null) {
+      this.showSuccessMessage = false;
+      this.usuariosservice.createUser(this.CreateUserForm.value, this.ficheroCrear).subscribe(
+        res => {
+          this.serverErrorMessages = '';
+          this.showSuccessMessageCreate = true;
+          this.CreateUserForm.reset();
+          this.cargarUsuarios();
           M.toast({ html: 'Created successfully', classes: 'rounded' });
         },
         err => {
@@ -95,7 +145,10 @@ export class UsuariosComponent implements OnInit {
 
   editarUsuario(user) {
     this.usuario = user;
-    console.log(user);
+    this.UserForm.value['nick'] = user.nick;
+    this.UserForm.value['email'] = user.nick;
+    this.UserForm.value['password'] = user.nick;
+    this.UserForm.value['nombre'] = user.nick;
   }
 
 }

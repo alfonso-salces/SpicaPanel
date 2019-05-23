@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Usuario } from '../../models/usuario';
 import { AuthService } from '../auth.service';
+import * as uuid from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class UsuariosService {
   }
 
   getUser(id) {
-    let cuerpo = new FormData();
+    const cuerpo = new FormData();
     cuerpo.append('id', id);
     return this.http.get(this.URL_API + '/profile', {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
@@ -33,12 +34,14 @@ export class UsuariosService {
   }
 
   createUser(credenciales, fichero) {
-    let cuerpo = new FormData();
+    const cuerpo = new FormData();
     cuerpo.append('nick', credenciales['nick']);
     cuerpo.append('email', credenciales['email']);
     cuerpo.append('password', credenciales['password']);
     cuerpo.append('nombre', credenciales['nombre']);
     cuerpo.append('rol', credenciales['rol']);
+    // const ext = fichero.name.split('.');
+    // fichero.name = uuid.v4() + '.' + ext[1];
     cuerpo.append('image', fichero, fichero.name);
     return this.http.post(this.URL_API + '/register', cuerpo, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
@@ -53,6 +56,8 @@ export class UsuariosService {
       editProfile.append('email', credenciales['email']);
       editProfile.append('password', credenciales['password']);
       editProfile.append('nombre', credenciales['nombre']);
+      const ext = fichero.name.split('.');
+      fichero.name = uuid.v4() + '.' + ext[1];
       editProfile.append('image', fichero, fichero.name);
       return this.http.put(this.URL_API + '/users/' + id, editProfile, {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
