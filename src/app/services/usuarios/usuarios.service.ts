@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Usuario } from '../../models/usuario';
 import { AuthService } from '../auth.service';
+import { Global } from '../global/global';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +12,10 @@ export class UsuariosService {
   token: string;
   idusuario: string;
 
-  readonly URL_API = 'http://localhost:3000/api';
-  readonly URL_IMG = 'http://localhost:3000/public/img/uploads/usuarios/';
-
-  constructor(private http: HttpClient, private router: Router, private authservice: AuthService) { }
+  constructor(private http: HttpClient, private router: Router, private authservice: AuthService, private global: Global) { }
 
   getUsers() {
-    return this.http.get(this.URL_API + '/users', {
+    return this.http.get(this.global.URL_API + '/users', {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
     });
   }
@@ -27,7 +23,7 @@ export class UsuariosService {
   getUser(id) {
     let cuerpo = new FormData();
     cuerpo.append('id', id);
-    return this.http.get(this.URL_API + '/profile', {
+    return this.http.get(this.global.URL_API + '/profile', {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
     });
   }
@@ -40,7 +36,7 @@ export class UsuariosService {
     cuerpo.append('nombre', credenciales['nombre']);
     cuerpo.append('rol', credenciales['rol']);
     cuerpo.append('image', fichero, fichero.name);
-    return this.http.post(this.URL_API + '/register', cuerpo, {
+    return this.http.post(this.global.URL_API + '/register', cuerpo, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
     });
   }
@@ -54,7 +50,7 @@ export class UsuariosService {
       editProfile.append('password', credenciales['password']);
       editProfile.append('nombre', credenciales['nombre']);
       editProfile.append('image', fichero, fichero.name);
-      return this.http.put(this.URL_API + '/users/' + id, editProfile, {
+      return this.http.put(this.global.URL_API + '/users/' + id, editProfile, {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
       });
     } else {
@@ -63,14 +59,14 @@ export class UsuariosService {
       editProfile.append('email', credenciales['email']);
       editProfile.append('password', credenciales['password']);
       editProfile.append('nombre', credenciales['nombre']);
-      return this.http.put(this.URL_API + '/users/' + id, editProfile, {
+      return this.http.put(this.global.URL_API + '/users/' + id, editProfile, {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
       });
     }
   }
 
   deleteUser(id) {
-    return this.http.delete(this.URL_API + '/users/' + id, {
+    return this.http.delete(this.global.URL_API + '/users/' + id, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
     });
   }

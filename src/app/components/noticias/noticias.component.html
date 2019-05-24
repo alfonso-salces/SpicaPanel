@@ -1,21 +1,35 @@
 <div class="container">
+  <div class="cajon-nuevo mb-4">
+    <button class="btn bg-info text-white" routerLink="/crearnoticia"><i class="fas fa-plus"> Crear
+        nueva noticia</i></button>
+  </div>
   <table class="table">
     <thead class="bg-danger text-white">
       <tr>
-        <th scope="col">Id</th>
+        <!-- <th scope="col" (click)="cambiarOrden()" *ngIf="orden">Id <i class="fas fa-arrow-to-top"></i></th> -->
+        <th scope="col" (click)="cambiarOrden()" *ngIf="!orden">Id <i class="fas fa-arrow-from-top"></i></th>
         <th scope="col">Titular</th>
         <th scope="col">Contenido</th>
         <th scope="col">Imagen</th>
         <th scope="col">Autor</th>
         <th scope="col">Fecha creación</th>
+        <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngFor="let noticia of noticias; let i = index">
       <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <td scope="row">{{noticia.id}}</td>
+        <td scope="row" class="text-truncate" style="max-width: 100px">{{noticia.titular}}</td>
+        <td scope="row" class="text-truncate" style="max-width: 100px;">{{noticia.contenido}}</td>
+        <td scope="row"><img src="{{global.URL_IMG_NOTICIAS}}/{{noticia.id}}/{{noticia.image}}" width="50px"
+            height="50px"></td>
+        <td scope="row">{{noticia.autor_id}}</td>
+        <td scope="row">{{noticia.createdAt}}</td>
+        <td scope="row">
+          <a (click)="editarNoticia(noticia, i)"><i class="fas fa-edit mr-2 text-success"></i></a>
+          <a (click)="eliminarNoticia(noticia, i)"><i class="fas fa-trash-alt mr-2 text-danger"></i></a>
+          <a (click)="verNoticia(noticia)"><i class="fas fa-eye text-primary"></i></a>
+        </td>
       </tr>
     </tbody>
   </table>
