@@ -3,6 +3,7 @@ import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Global } from 'src/app/services/global/global';
 
 @Component({
   selector: 'app-usuarios',
@@ -28,6 +29,7 @@ export class UsuariosComponent implements OnInit {
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     nombre: new FormControl('', Validators.required),
+    rol: new FormControl('', Validators.required),
     image: new FormControl(),
   });
 
@@ -40,7 +42,8 @@ export class UsuariosComponent implements OnInit {
     image: new FormControl(),
   });
 
-  constructor(private usuariosservice: UsuariosService, private authservice: AuthService, private toastr: ToastrService) { }
+  // tslint:disable-next-line:max-line-length
+  constructor(private usuariosservice: UsuariosService, private authservice: AuthService, private toastr: ToastrService, private global: Global) { }
 
   ngOnInit() {
     this.cargarUsuarios();
@@ -66,6 +69,10 @@ export class UsuariosComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  invertirUsuarios() {
+    this.usuarios.reverse();
   }
 
   limpiarFormulario() {

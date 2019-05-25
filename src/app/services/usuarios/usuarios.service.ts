@@ -48,6 +48,7 @@ export class UsuariosService {
       editProfile.append('email', credenciales['email']);
       editProfile.append('password', credenciales['password']);
       editProfile.append('nombre', credenciales['nombre']);
+      editProfile.append('rol', credenciales['rol']);
       editProfile.append('image', fichero, fichero.name);
       return this.http.put(this.global.URL_API + '/users/' + id, editProfile, {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
@@ -58,6 +59,7 @@ export class UsuariosService {
       editProfile.append('email', credenciales['email']);
       editProfile.append('password', credenciales['password']);
       editProfile.append('nombre', credenciales['nombre']);
+      editProfile.append('rol', credenciales['rol']);
       return this.http.put(this.global.URL_API + '/users/' + id, editProfile, {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
       });
