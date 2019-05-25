@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { ComentariosComponent } from './components/comentarios/comentarios.component';
 import { NoticiasComponent } from './components/noticias/noticias.component';
+import { CrearnoticiaComponent } from './components/noticias/crearnoticia/crearnoticia/crearnoticia.component';
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'noticias',
     component: NoticiasComponent,
+  },
+  {
+    path: 'crearnoticia',
+    component: CrearnoticiaComponent,
   },
   {
     path: 'notificaciones',

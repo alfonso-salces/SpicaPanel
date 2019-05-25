@@ -1,6 +1,7 @@
 export class Usuario {
 
-    constructor(nombre = '', nick = '', email = '', image = '', rol = '') {
+    constructor(id = 0, nombre = '', nick = '', email = '', image = '', rol = '') {
+        this.id = id;
         this.nombre = nombre;
         this.nick = nick;
         this.email = email;
@@ -8,6 +9,7 @@ export class Usuario {
         this.rol = rol;
     }
 
+    id: number;
     nombre: string;
     nick: string;
     email: string;

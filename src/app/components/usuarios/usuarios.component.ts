@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-declare var M: any;
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuarios',
@@ -41,7 +40,7 @@ export class UsuariosComponent implements OnInit {
     image: new FormControl(),
   });
 
-  constructor(private usuariosservice: UsuariosService, private authservice: AuthService) { }
+  constructor(private usuariosservice: UsuariosService, private authservice: AuthService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.cargarUsuarios();
@@ -71,20 +70,21 @@ export class UsuariosComponent implements OnInit {
 
   limpiarFormulario() {
     this.UserForm.reset();
+    this.CreateUserForm.reset();
     this.serverErrorMessages = '';
     this.showSuccessMessage = false;
+    this.showSuccessMessageCreate = false;
   }
 
   eliminarUsuario(user, i) {
-    this.usuarios.splice(i, 1);
     this.usuariosservice.deleteUser(user.id).subscribe(
       res => {
-        console.log(res);
-        M.toast({ html: 'Deleted successfully', classes: 'rounded' });
+        this.toastr.success('¡Usuario eliminado correctamente!')
+        this.usuarios.splice(i, 1);
         this.cargarUsuarios();
       },
       error => {
-        console.log(error);
+        this.toastr.error('Ha ocurrido un error.');
       }
     );
   }
@@ -97,12 +97,13 @@ export class UsuariosComponent implements OnInit {
           this.serverErrorMessages = '';
           this.showSuccessMessage = true;
           this.UserForm.reset();
+          this.fichero = null;
           this.cargarUsuarios();
-          M.toast({ html: 'Updated successfully', classes: 'rounded' });
+          this.toastr.success('¡Usuario editado correctamente!')
         },
         err => {
           console.log(err);
-          this.serverErrorMessages = err.error.errors[0].mesage;
+          this.toastr.error('Ha ocurrido un error');
         }
       );
     } else {
@@ -112,11 +113,11 @@ export class UsuariosComponent implements OnInit {
           this.showSuccessMessage = true;
           this.UserForm.reset();
           this.cargarUsuarios();
-          M.toast({ html: 'Updated successfully', classes: 'rounded' });
+          this.toastr.success('¡Usuario editado correctamente!')
         },
         err => {
           console.log(err);
-          this.serverErrorMessages = err.error.errors[0].mesage;
+          this.toastr.error('Ha ocurrido un error');
         }
       );
     }
@@ -129,13 +130,14 @@ export class UsuariosComponent implements OnInit {
         res => {
           this.serverErrorMessages = '';
           this.showSuccessMessageCreate = true;
+          this.ficheroCrear = null;
           this.CreateUserForm.reset();
           this.cargarUsuarios();
-          M.toast({ html: 'Created successfully', classes: 'rounded' });
+          this.toastr.success('¡Usuario creado correctamente!')
         },
         err => {
           console.log(err);
-          this.serverErrorMessages = err.error.errors[0].mesage;
+          this.toastr.success('Ha ocurrido un error.');
         }
       );
     } else {
@@ -145,6 +147,9 @@ export class UsuariosComponent implements OnInit {
 
   editarUsuario(user) {
     this.usuario = user;
+    this.UserForm.get('nick').setValue(user.nick);
+    this.UserForm.get('email').setValue(user.email);
+    this.UserForm.get('nombre').setValue(user.nombre);
     this.UserForm.value['nick'] = user.nick;
     this.UserForm.value['email'] = user.nick;
     this.UserForm.value['password'] = user.nick;

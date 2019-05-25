@@ -13,6 +13,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
+import { Global } from './services/global/global';
+import { NgxSummernoteModule } from 'ngx-summernote';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { CrearnoticiaComponent } from './components/noticias/crearnoticia/crearnoticia/crearnoticia.component';
+
 
 @NgModule({
   declarations: [
@@ -24,15 +30,19 @@ import { UserprofileComponent } from './components/userprofile/userprofile.compo
     NotificacionesComponent,
     HomeComponent,
     NotfoundComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    CrearnoticiaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSummernoteModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [Global],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
