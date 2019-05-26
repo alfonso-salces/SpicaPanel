@@ -8,7 +8,7 @@ import { Global } from 'src/app/services/global/global';
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+  styleUrls: ['./usuarios.component.scss'],
 })
 export class UsuariosComponent implements OnInit {
 
@@ -41,6 +41,8 @@ export class UsuariosComponent implements OnInit {
     rol: new FormControl('', Validators.required),
     image: new FormControl(),
   });
+
+  filterUser = '';
 
   // tslint:disable-next-line:max-line-length
   constructor(private usuariosservice: UsuariosService, private authservice: AuthService, private toastr: ToastrService, private global: Global) { }

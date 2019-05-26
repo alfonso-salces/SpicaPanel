@@ -31,7 +31,7 @@
       <li class="nav-item active enlaces-bl">
         <a class="nav-link" routerLink="/">Inicio</a>
       </li>
-      <li class="nav-item dropdown active" *ngIf="!authservice.isLogged()">
+      <li class="nav-item dropdown active" *ngIf="!isLogged()">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Iniciar Sesión
@@ -61,20 +61,20 @@
         </div>
 
       </li>
-      <li class="nav-item active enlaces-bl" *ngIf="authservice.isAdmin()">
+      <li class="nav-item active enlaces-bl" *ngIf="isAdmin()">
         <a class="nav-link" routerLink="/usuarios">Usuarios</a>
       </li>
-      <li class="nav-item active enlaces-bl" *ngIf="authservice.isAdmin()">
+      <li class="nav-item active enlaces-bl" *ngIf="isAdmin()">
         <a class="nav-link" routerLink="/categorias">Categorias</a>
       </li>
-      <li class="nav-item active enlaces-bl" *ngIf="authservice.isAdmin()">
+      <li class="nav-item active enlaces-bl" *ngIf="isAdmin()">
         <a class="nav-link" routerLink="/noticias">Noticias</a>
       </li>
-      <li class="nav-item active enlaces-bl navbar-right" *ngIf="authservice.isLogged()">
+      <li class="nav-item active enlaces-bl navbar-right" *ngIf="isLogged()">
         <a class="nav-link" routerLink="/profile">Mi Perfil</a>
       </li>
-      <li class="nav-item active enlaces-bl navbar-right" *ngIf="authservice.isLogged()">
-        <a class="nav-link" routerLink="/" (click)="authservice.onLogout()">Cerrar Sesión</a>
+      <li class="nav-item active enlaces-bl navbar-right" *ngIf="isLogged()">
+        <a class="nav-link" routerLink="/" (click)="onLogout()">Cerrar Sesión</a>
       </li>
     </ul>
 

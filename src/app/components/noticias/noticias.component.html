@@ -3,6 +3,9 @@
     <button class="btn bg-info text-white" routerLink="/crearnoticia"><i class="fas fa-plus"> Crear
         nueva noticia</i></button>
   </div>
+  <div class="form-group">
+    <input class="form-control mb-2" type="text" placeholder="Buscar por titular" [(ngModel)]="filterNew">
+  </div>
   <table class="table table-bordered table-hover">
     <thead class="bg-danger text-white">
       <tr>
@@ -16,7 +19,7 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody *ngFor="let noticia of noticias; let i = index">
+    <tbody *ngFor="let noticia of noticias | filterNew: filterNew">
       <tr>
         <td scope="row">{{noticia.id}}</td>
         <td scope="row" class="text-truncate" style="max-width: 100px">{{noticia.titular}}</td>

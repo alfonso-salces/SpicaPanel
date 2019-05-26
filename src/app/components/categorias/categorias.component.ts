@@ -33,6 +33,8 @@ export class CategoriasComponent implements OnInit {
     image: new FormControl(),
   });
 
+  filterCategory = '';
+
   constructor(private global: Global, private toastr: ToastrService, private categoriasservice: CategoriasService) { }
 
   ngOnInit() {

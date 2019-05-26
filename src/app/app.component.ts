@@ -42,4 +42,16 @@ export class AppComponent {
     );
   }
 
+  onLogout() {
+    this.authservice.onLogout();
+  }
+
+  isAdmin() {
+    return this.authservice.isAdmin();
+  }
+
+  isLogged() {
+    return this.authservice.isLogged();
+  }
+
 }

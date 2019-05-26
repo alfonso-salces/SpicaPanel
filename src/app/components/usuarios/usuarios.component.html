@@ -6,7 +6,9 @@
         Crear
         nuevo usuario</i></button>
   </div>
-
+  <div class="form-group">
+    <input class="form-control mb-2" type="text" placeholder="Buscar por nick" [(ngModel)]="filterUser">
+  </div>
   <table class="table table-bordered table-hover">
     <thead class="bg-danger text-white">
       <tr>
@@ -20,7 +22,7 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody *ngFor="let user of usuarios; let i = index">
+    <tbody *ngFor="let user of usuarios | filterUser: filterUser">
       <tr scope="row">
         <td scope="row">{{user.id}}</td>
         <td scope="row">{{user.nick}}</td>

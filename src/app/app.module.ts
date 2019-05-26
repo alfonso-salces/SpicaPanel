@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
@@ -18,6 +18,9 @@ import { NgxSummernoteModule } from 'ngx-summernote';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CrearnoticiaComponent } from './components/noticias/crearnoticia/crearnoticia/crearnoticia.component';
+import { UsuariosPipe } from './services/filtros/usuarios.pipe';
+import { CategoriasPipe } from './services/filtros/categorias.pipe';
+import { NoticiasPipe } from './services/filtros/noticias.pipe';
 
 
 @NgModule({
@@ -31,12 +34,16 @@ import { CrearnoticiaComponent } from './components/noticias/crearnoticia/crearn
     HomeComponent,
     NotfoundComponent,
     UserprofileComponent,
-    CrearnoticiaComponent
+    CrearnoticiaComponent,
+    UsuariosPipe,
+    CategoriasPipe,
+    NoticiasPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     NgxSummernoteModule,
     BrowserAnimationsModule,

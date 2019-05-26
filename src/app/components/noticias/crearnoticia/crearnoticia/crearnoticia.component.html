@@ -2,12 +2,12 @@
   <h2 class="text-center">Crear Noticia</h2>
 
   <div [formGroup]="form">
-    <div formControlName="html" [ngxSummernote]="config" [ngxSummernoteDisabled]="editorDisabled" (blur)="onBlur()">
+    <div formControlName="html" [ngxSummernote]="config">
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary mt-3" (click)="cargarTexto()" data-toggle="modal"
-    data-target="#modal-vista-previa">Vista Previa</button>
+  <button type="submit" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modal-vista-previa">Vista
+    Previa</button>
 </div>
 
 

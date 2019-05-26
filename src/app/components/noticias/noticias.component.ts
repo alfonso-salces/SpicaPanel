@@ -14,6 +14,8 @@ export class NoticiasComponent implements OnInit {
   notic: any[];
   orden: any;
 
+  filterNew = '';
+
   constructor(private noticiasservice: NoticiasService, private global: Global, private toastr: ToastrService) { }
 
   ngOnInit() {
