@@ -18,10 +18,10 @@ export class NotificacionesService {
     return this.http.get(this.global.URL_API + '/notification/' + id);
   }
 
-  createNotification(id, formulario, fichero) {
+  createNotification(id, formulario) {
     let cuerpo = new FormData();
-    cuerpo.append('titular', formulario['titular']);
-    cuerpo.append('contenido', formulario['contenido']);
+    cuerpo.append('titulo', formulario['titulo']);
+    cuerpo.append('cuerpo', formulario['cuerpo']);
     cuerpo.append('autor_id', id);
     return this.http.post(this.global.URL_API + '/createnotification', cuerpo, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())

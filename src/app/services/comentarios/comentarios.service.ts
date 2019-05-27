@@ -22,7 +22,7 @@ export class ComentariosService {
     let cuerpo = new FormData();
     cuerpo.append('cuerpo', formulario['cuerpo']);
     cuerpo.append('noticia_id', formulario['noticia_id']);
-    cuerpo.append('autor_id', formulario['autor_id']);
+    cuerpo.append('autor_id', id);
     return this.http.post(this.global.URL_API + '/createcomment', cuerpo, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
     });

@@ -66,11 +66,11 @@ export class CategoriasComponent implements OnInit {
     );
   }
 
-  eliminarCategoria(categoria, i) {
+  eliminarCategoria(categoria) {
     this.categoriasservice.deleteCategory(categoria.id).subscribe(
       res => {
         this.toastr.success('Categoría eliminada correctamente.')
-        this.categorias.splice(i, 1);
+        this.categorias.splice(this.categorias.indexOf(categoria), 1);
       },
       error => {
         this.toastr.error('Ha ocurrido un error.')
@@ -98,7 +98,7 @@ export class CategoriasComponent implements OnInit {
     }
   }
 
-  editarCategoria(categoria, i) {
+  editarCategoria(categoria) {
     this.selectedCategory = categoria;
     this.EditCategoryForm.get('nombre').setValue(categoria.nombre);
   }

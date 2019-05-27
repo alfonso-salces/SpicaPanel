@@ -50,6 +50,14 @@ export class AppComponent {
     return this.authservice.isAdmin();
   }
 
+  isModerador() {
+    return this.authservice.isModerador();
+  }
+
+  isRedactor() {
+    return this.authservice.isRedactor();
+  }
+
   isLogged() {
     return this.authservice.isLogged();
   }

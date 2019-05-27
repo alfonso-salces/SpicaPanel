@@ -18,7 +18,7 @@
   </div>
 
  --------->
-<nav class="navbar navbar-expand-md navbar-dark bg-danger mb-5 navbar-fixed-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-danger mb-5 sticky-top">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,6 +59,7 @@
           </form>
 
         </div>
+        <!-- COMPROBACIÓN ADMIN -->
 
       </li>
       <li class="nav-item active enlaces-bl" *ngIf="isAdmin()">
@@ -70,6 +71,42 @@
       <li class="nav-item active enlaces-bl" *ngIf="isAdmin()">
         <a class="nav-link" routerLink="/noticias">Noticias</a>
       </li>
+      <li class="nav-item active enlaces-bl" *ngIf="isAdmin()">
+        <a class="nav-link" routerLink="/comentarios">Comentarios</a>
+      </li>
+      <li class="nav-item active enlaces-bl" *ngIf="isAdmin()">
+        <a class="nav-link" routerLink="/notificaciones">Notificaciones</a>
+      </li>
+
+      <!-- COMPROBACIÓN MODERADOR -->
+
+      <li class="nav-item active enlaces-bl" *ngIf="isModerador()">
+        <a class="nav-link" routerLink="/usuarios">Usuarios</a>
+      </li>
+      <li class="nav-item active enlaces-bl" *ngIf="isModerador()">
+        <a class="nav-link" routerLink="/categorias">Categorias</a>
+      </li>
+      <li class="nav-item active enlaces-bl" *ngIf="isModerador()">
+        <a class="nav-link" routerLink="/noticias">Noticias</a>
+      </li>
+      <li class="nav-item active enlaces-bl" *ngIf="isModerador()">
+        <a class="nav-link" routerLink="/comentarios">Comentarios</a>
+      </li>
+
+      <!-- COMPROBACIÓN REDACTOR -->
+
+      <li class="nav-item active enlaces-bl" *ngIf="isRedactor()">
+        <a class="nav-link" routerLink="/categorias">Categorias</a>
+      </li>
+      <li class="nav-item active enlaces-bl" *ngIf="isRedactor()">
+        <a class="nav-link" routerLink="/noticias">Noticias</a>
+      </li>
+      <li class="nav-item active enlaces-bl" *ngIf="isRedactor()">
+        <a class="nav-link" routerLink="/comentarios">Comentarios</a>
+      </li>
+
+      <!-- COMPROBACIÓN LOGGED -->
+
       <li class="nav-item active enlaces-bl navbar-right" *ngIf="isLogged()">
         <a class="nav-link" routerLink="/profile">Mi Perfil</a>
       </li>

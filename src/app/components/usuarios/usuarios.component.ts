@@ -85,11 +85,11 @@ export class UsuariosComponent implements OnInit {
     this.showSuccessMessageCreate = false;
   }
 
-  eliminarUsuario(user, i) {
+  eliminarUsuario(user) {
     this.usuariosservice.deleteUser(user.id).subscribe(
       res => {
         this.toastr.success('¡Usuario eliminado correctamente!')
-        this.usuarios.splice(i, 1);
+        this.usuarios.splice(this.usuarios.indexOf(user), 1);
         this.cargarUsuarios();
       },
       error => {
@@ -159,10 +159,12 @@ export class UsuariosComponent implements OnInit {
     this.UserForm.get('nick').setValue(user.nick);
     this.UserForm.get('email').setValue(user.email);
     this.UserForm.get('nombre').setValue(user.nombre);
+    this.UserForm.get('rol').setValue(user.rol);
     this.UserForm.value['nick'] = user.nick;
     this.UserForm.value['email'] = user.nick;
     this.UserForm.value['password'] = user.nick;
     this.UserForm.value['nombre'] = user.nick;
+    this.UserForm.value['rol'] = user.rol;
   }
 
 }

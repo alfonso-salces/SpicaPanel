@@ -1,3 +1,71 @@
-<p>
-  notificaciones works!
-</p>
+<div class="container">
+  <div class="cajon-nuevo mb-4">
+    <button class="btn bg-info text-white" data-target="#crear-notificacion-modal" data-toggle="modal"><i
+        class="fas fa-plus"> Crear
+        nueva notificación</i></button>
+  </div>
+  <div class="form-group">
+    <input class="form-control mb-2" type="text" placeholder="Buscar por titulo" [(ngModel)]="filterNotification">
+  </div>
+  <table class="table table-bordered table-hover">
+    <thead class="bg-danger text-white">
+      <tr>
+        <!-- <th scope="col" (click)="cambiarOrden()" *ngIf="orden">Id <i class="fas fa-arrow-to-top"></i></th> -->
+        <th scope="col" (click)="cambiarOrden()">Id <i class="fas fa-arrow-from-top"></i></th>
+        <th scope="col">Título</th>
+        <th scope="col">Contenido</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Fecha creación</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let notification of notifications | filterNotification: filterNotification">
+      <tr>
+        <td scope="row">{{notification.id}}</td>
+        <td scope="row">{{notification.titulo}}</td>
+        <td scope="row" class="text-truncate" style="max-width: 100px;">{{notification.cuerpo}}</td>
+        <td scope="row">{{notification.Usuario.nombre}}</td>
+        <td scope="row">{{notification.createdAt}}</td>
+        <td scope="row">
+          <a (click)="eliminarNotificacion(notification)"><i class="fas fa-trash-alt mr-2 text-danger"></i></a>
+          <a (click)="verNotificacion(notification)"><i class="fas fa-eye text-primary"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="crear-notificacion-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear Notificación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="CreateNotificationForm" (ngSubmit)="onCreate()">
+          <div class="form-group">
+            <label for="titulo" class="col-form-label">Titulo:</label>
+            <input type="text" class="form-control" formControlName="titulo" id="titulo" />
+          </div>
+          <div class="form-group">
+            <label for="cuerpo" class="col-form-label">Cuerpo:</label>
+            <input type="text" class="form-control" formControlName="cuerpo" id="cuerpo" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" type="submit">Crear</button>
+          </div>
+          <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
+            *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
+          <small id=" emailHelp" class="form-text text-success text-center font-weight-bold text-uppercase mb-3"
+            *ngIf="showSuccessMessageCreate">¡Notificación creada correctamente!</small>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

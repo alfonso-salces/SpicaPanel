@@ -55,24 +55,20 @@ export class NoticiasComponent implements OnInit {
     );
   }
 
-  editarNoticia(noticia, i) {
+  editarNoticia(noticia) {
 
   }
 
-  eliminarNoticia(noticia, i) {
+  eliminarNoticia(noticia) {
     this.noticiasservice.deleteNew(noticia.id).subscribe(
       res => {
         this.toastr.success("Noticia eliminada correctamente.")
-        this.noticias.splice(i, 1);
+        this.noticias.splice(this.noticias.indexOf(noticia), 1);
       },
       error => {
         this.toastr.error("Ha ocurrido un error.")
       }
     );
-  }
-
-  onCreate() {
-
   }
 
 }

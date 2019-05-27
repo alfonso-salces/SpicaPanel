@@ -15,6 +15,7 @@
         <th scope="col">Contenido</th>
         <th scope="col">Imagen</th>
         <th scope="col">Autor</th>
+        <th scope="col">Categoría</th>
         <th scope="col">Fecha creación</th>
         <th scope="col">Acciones</th>
       </tr>
@@ -26,7 +27,8 @@
         <td scope="row" class="text-truncate" style="max-width: 100px;">{{noticia.contenido}}</td>
         <td scope="row"><img src="{{global.URL_IMG_NOTICIAS}}/{{noticia.id}}/{{noticia.image}}" width="50px"
             height="50px"></td>
-        <td scope="row">{{noticia.autor_id}}</td>
+        <td scope="row">{{noticia.Usuario.nombre}}</td>
+        <td scope="row">{{noticia.Categoria.nombre}}</td>
         <td scope="row">{{noticia.createdAt}}</td>
         <td scope="row">
           <a (click)="editarNoticia(noticia, i)"><i class="fas fa-edit mr-2 text-success"></i></a>

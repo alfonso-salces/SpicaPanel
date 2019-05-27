@@ -21,6 +21,8 @@ import { CrearnoticiaComponent } from './components/noticias/crearnoticia/crearn
 import { UsuariosPipe } from './services/filtros/usuarios.pipe';
 import { CategoriasPipe } from './services/filtros/categorias.pipe';
 import { NoticiasPipe } from './services/filtros/noticias.pipe';
+import { ComentariosPipe } from './services/filtros/comentarios.pipe';
+import { NotificacionesPipe } from './services/filtros/notificaciones.pipe';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { NoticiasPipe } from './services/filtros/noticias.pipe';
     UsuariosPipe,
     CategoriasPipe,
     NoticiasPipe,
+    ComentariosPipe,
+    NotificacionesPipe,
   ],
   imports: [
     BrowserModule,
