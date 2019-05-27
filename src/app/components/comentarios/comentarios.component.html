@@ -11,7 +11,7 @@
     <thead class="bg-danger text-white">
       <tr>
         <!-- <th scope="col" (click)="cambiarOrden()" *ngIf="orden">Id <i class="fas fa-arrow-to-top"></i></th> -->
-        <th scope="col" (click)="cambiarOrden()" *ngIf="!orden">Id <i class="fas fa-arrow-from-top"></i></th>
+        <th scope="col" (click)="cambiarOrden()">Id <i class="fas fa-arrow-from-top"></i></th>
         <th scope="col">Contenido</th>
         <th scope="col">Autor</th>
         <th scope="col">Noticia</th>
@@ -60,10 +60,6 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-primary" type="submit">Crear</button>
           </div>
-          <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
-            *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
-          <small id=" emailHelp" class="form-text text-success text-center font-weight-bold text-uppercase mb-3"
-            *ngIf="showSuccessMessageCreate">¡Comentario creado correctamente!</small>
         </form>
       </div>
 

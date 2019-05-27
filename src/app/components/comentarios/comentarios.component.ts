@@ -24,6 +24,7 @@ export class ComentariosComponent implements OnInit {
     autor_id: new FormControl(''),
   });
 
+  // tslint:disable-next-line:max-line-length
   constructor(private authservice: AuthService, private comentariosservice: ComentariosService, private noticiasservice: NoticiasService, private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -40,6 +41,10 @@ export class ComentariosComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  cambiarOrden() {
+    this.comentarios.reverse();
   }
 
   cargarAutor() {
