@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
+import { ToastrService, Toast } from 'ngx-toastr';
 
 @Component({
   selector: 'app-userprofile',
@@ -28,7 +29,7 @@ export class UserprofileComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  constructor(private router: Router, private authservice: AuthService) { }
+  constructor(private router: Router, private authservice: AuthService, private tostr: ToastrService) { }
 
   ngOnInit() {
     this.cargarDatos();
@@ -58,10 +59,12 @@ export class UserprofileComponent implements OnInit {
           this.authservice.deleteToken();
           this.authservice.setToken(res['token']);
           this.cargarDatos();
+          this.tostr.success('¡El usuario ha sido editado correctamente!');
         },
         err => {
           console.log(err);
           this.serverErrorMessages = err.error.errors[0].mesage;
+          this.tostr.error('Ha ocurrido un error.');
         }
       );
     } else {
@@ -73,10 +76,12 @@ export class UserprofileComponent implements OnInit {
           this.authservice.deleteToken();
           this.authservice.setToken(res['token']);
           this.cargarDatos();
+          this.tostr.success('¡El usuario ha sido editado correctamente!');
         },
         err => {
           console.log(err);
           this.serverErrorMessages = err.error.errors[0].message;
+          this.tostr.error('Ha ocurrido un error.');
         }
       );
     }

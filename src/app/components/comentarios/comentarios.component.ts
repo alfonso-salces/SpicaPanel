@@ -17,6 +17,7 @@ export class ComentariosComponent implements OnInit {
   noticias: any[];
   filterComment = '';
   autor: Usuario;
+  comentarioSelected: any;
 
   CreateCommentForm = new FormGroup({
     cuerpo: new FormControl(''),
@@ -51,6 +52,10 @@ export class ComentariosComponent implements OnInit {
     this.autor = this.authservice.extraertoken();
   }
 
+  seleccionarComentario(comentario) {
+    this.comentarioSelected = comentario;
+  }
+
   cargarNoticias() {
     this.noticiasservice.getNews().subscribe(
       res => {
@@ -71,7 +76,7 @@ export class ComentariosComponent implements OnInit {
       error => {
         this.toastr.error('Ha ocurrido un error');
       }
-    )
+    );
   }
 
   onCreate() {

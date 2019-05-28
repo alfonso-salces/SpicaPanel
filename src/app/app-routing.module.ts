@@ -12,6 +12,7 @@ import { UserprofileComponent } from './components/userprofile/userprofile.compo
 import { AuthGuard } from './services/guards/auth.guard';
 import { RedactorGuard } from './services/guards/redactor.guard';
 import { ModeradorGuard } from './services/guards/moderador.guard';
+import { EditarnoticiaComponent } from './components/noticias/editarnoticia/editarnoticia.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,11 @@ const routes: Routes = [
   {
     path: 'crearnoticia',
     component: CrearnoticiaComponent,
+    canActivate: [RedactorGuard]
+  },
+  {
+    path: 'editarnoticia',
+    component: EditarnoticiaComponent,
     canActivate: [RedactorGuard]
   },
   {

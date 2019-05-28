@@ -23,6 +23,7 @@ import { CategoriasPipe } from './services/filtros/categorias.pipe';
 import { NoticiasPipe } from './services/filtros/noticias.pipe';
 import { ComentariosPipe } from './services/filtros/comentarios.pipe';
 import { NotificacionesPipe } from './services/filtros/notificaciones.pipe';
+import { EditarnoticiaComponent } from './components/noticias/editarnoticia/editarnoticia.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { NotificacionesPipe } from './services/filtros/notificaciones.pipe';
     NoticiasPipe,
     ComentariosPipe,
     NotificacionesPipe,
+    EditarnoticiaComponent,
   ],
   imports: [
     BrowserModule,

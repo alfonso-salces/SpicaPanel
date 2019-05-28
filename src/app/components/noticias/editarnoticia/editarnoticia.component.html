@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="text-center">Crear Noticia</h2>
+  <h2 class="text-center">Editar Noticia</h2>
 
   <div [formGroup]="form">
     <div formControlName="html" [ngxSummernote]="config">
@@ -46,7 +46,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Publicar</button>
+          <button type="submit" class="btn btn-primary">Editar</button>
           <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
             *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
         </div>

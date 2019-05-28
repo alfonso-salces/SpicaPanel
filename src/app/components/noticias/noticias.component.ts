@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NoticiasService } from '../../services/noticias/noticias.service';
 import { Global } from '../../services/global/global';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Usuario } from 'src/app/models/usuario';
 
 @Component({
   selector: 'app-noticias',
@@ -12,11 +15,12 @@ export class NoticiasComponent implements OnInit {
 
   noticias: any[];
   notic: any[];
-  orden: any;
 
   filterNew = '';
+  _sanitizer: DomSanitizer;
 
-  constructor(private noticiasservice: NoticiasService, private global: Global, private toastr: ToastrService) { }
+  // tslint:disable-next-line:max-line-length
+  constructor(private noticiasservice: NoticiasService, private global: Global, private toastr: ToastrService, private router: Router, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.cargarNoticias();
@@ -35,38 +39,27 @@ export class NoticiasComponent implements OnInit {
 
 
   cambiarOrden() {
-    if (this.orden === false) {
-      this.noticias.reverse();
-    } else {
-      this.orden = false;
-      this.noticias.reverse();
-    }
-
+    this.noticias.reverse();
   }
 
   verNoticia(noticia) {
-    this.noticiasservice.getNew(noticia.id).subscribe(
-      res => {
-        this.notic = res as any;
-      },
-      error => {
-        console.log(error)
-      }
-    );
+    this._sanitizer = this.sanitizer;
+    this.notic = noticia;
   }
 
   editarNoticia(noticia) {
-
+    this.noticiasservice.setNoticia(noticia);
+    this.router.navigateByUrl('/editarnoticia');
   }
 
   eliminarNoticia(noticia) {
     this.noticiasservice.deleteNew(noticia.id).subscribe(
       res => {
-        this.toastr.success("Noticia eliminada correctamente.")
+        this.toastr.success('Noticia eliminada correctamente.');
         this.noticias.splice(this.noticias.indexOf(noticia), 1);
       },
       error => {
-        this.toastr.error("Ha ocurrido un error.")
+        this.toastr.error('Ha ocurrido un error.');
       }
     );
   }

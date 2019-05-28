@@ -8,6 +8,8 @@ import { Global } from '../global/global';
 })
 export class NoticiasService {
 
+  selectedNoticia;
+
   constructor(private http: HttpClient, private authservice: AuthService, private global: Global) { }
 
   getNews() {
@@ -30,13 +32,13 @@ export class NoticiasService {
     });
   }
 
-  editNew(id, formulario, fichero) {
+  editNew(id, autorid, formulario, fichero) {
     if (fichero != null) {
       const cuerpo = new FormData();
       cuerpo.append('titular', formulario['titular']);
-      cuerpo.append('contenido', formulario['contenido']);
+      cuerpo.append('contenido', formulario['html']);
       cuerpo.append('categoria_id', formulario['categoria_id']);
-      cuerpo.append('autor_id', formulario['autor_id']);
+      cuerpo.append('autor_id', autorid);
       cuerpo.append('image', fichero, fichero.name);
       return this.http.put(this.global.URL_API + '/editnew/' + id, cuerpo, {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
@@ -44,9 +46,9 @@ export class NoticiasService {
     } else {
       const cuerpo = new FormData();
       cuerpo.append('titular', formulario['titular']);
-      cuerpo.append('contenido', formulario['contenido']);
+      cuerpo.append('contenido', formulario['html']);
       cuerpo.append('categoria_id', formulario['categoria_id']);
-      cuerpo.append('autor_id', formulario['autor_id']);
+      cuerpo.append('autor_id', autorid);
       return this.http.put(this.global.URL_API + '/editnew/' + id, cuerpo, {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
       });
@@ -57,5 +59,13 @@ export class NoticiasService {
     return this.http.delete(this.global.URL_API + '/deletenew/' + id, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
     });
+  }
+
+  setNoticia(noticia) {
+    this.selectedNoticia = noticia;
+  }
+
+  getNoticia() {
+    return this.selectedNoticia;
   }
 }
