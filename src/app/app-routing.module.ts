@@ -9,6 +9,10 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
+import { AuthGuard } from './services/guards/auth.guard';
+import { RedactorGuard } from './services/guards/redactor.guard';
+import { ModeradorGuard } from './services/guards/moderador.guard';
+
 
 const routes: Routes = [
   {
@@ -18,30 +22,37 @@ const routes: Routes = [
   {
     path: 'profile',
     component: UserprofileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'categorias',
     component: CategoriasComponent,
+    canActivate: [RedactorGuard]
   },
   {
     path: 'comentarios',
     component: ComentariosComponent,
+    canActivate: [ModeradorGuard]
   },
   {
     path: 'noticias',
     component: NoticiasComponent,
+    canActivate: [RedactorGuard]
   },
   {
     path: 'crearnoticia',
     component: CrearnoticiaComponent,
+    canActivate: [RedactorGuard]
   },
   {
     path: 'notificaciones',
     component: NotificacionesComponent,
+    canActivate: [RedactorGuard]
   },
   {
     path: 'usuarios',
     component: UsuariosComponent,
+    canActivate: [ModeradorGuard]
   },
   {
     path: 'not-found',

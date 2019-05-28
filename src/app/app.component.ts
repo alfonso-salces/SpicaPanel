@@ -46,10 +46,6 @@ export class AppComponent {
     this.authservice.onLogout();
   }
 
-  isAdmin() {
-    return this.authservice.isAdmin();
-  }
-
   isModerador() {
     return this.authservice.isModerador();
   }

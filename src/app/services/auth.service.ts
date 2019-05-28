@@ -80,16 +80,8 @@ export class AuthService {
     }
   }
 
-  isAdmin() {
-    if (this.loggedUser.rol === 'admin') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   isRedactor() {
-    if (this.loggedUser.rol === 'redactor') {
+    if (this.loggedUser.rol === 'redactor' || this.loggedUser.rol === 'admin') {
       return true;
     } else {
       return false;
@@ -97,7 +89,7 @@ export class AuthService {
   }
 
   isModerador() {
-    if (this.loggedUser.rol === 'moderador') {
+    if (this.loggedUser.rol === 'moderador' || this.loggedUser.rol === 'admin') {
       return true;
     } else {
       return false;
