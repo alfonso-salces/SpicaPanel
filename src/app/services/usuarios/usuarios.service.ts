@@ -67,7 +67,7 @@ export class UsuariosService {
   }
 
   deleteUser(id) {
-    return this.http.delete(this.global.URL_API + '/users/' + id, {
+    return this.http.post(this.global.URL_API + '/userdisable/' + id, null, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
     });
   }

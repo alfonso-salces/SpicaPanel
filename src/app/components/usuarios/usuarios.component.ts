@@ -88,8 +88,7 @@ export class UsuariosComponent implements OnInit {
   eliminarUsuario(user) {
     this.usuariosservice.deleteUser(user.id).subscribe(
       res => {
-        this.toastr.success('¡Usuario eliminado correctamente!')
-        this.usuarios.splice(this.usuarios.indexOf(user), 1);
+        this.toastr.success('¡Usuario deshabilitado correctamente!')
         this.cargarUsuarios();
       },
       error => {
