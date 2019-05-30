@@ -15,16 +15,19 @@ export class NotificacionesComponent implements OnInit {
   notifications: any[];
   autor = new Usuario;
   filterNotification = '';
+  errores = false;
+  ErrorForm = '';
 
   CreateNotificationForm = new FormGroup({
-    titulo: new FormControl(''),
-    cuerpo: new FormControl(''),
+    titulo: new FormControl('', Validators.required),
+    cuerpo: new FormControl('', Validators.required),
     autor_id: new FormControl(''),
   });
 
   constructor(private authservice: AuthService, private toastr: ToastrService, private notificacionesservice: NotificacionesService) { }
 
   ngOnInit() {
+    this.errores = false;
     this.cargarNotificaciones();
     this.cargarAutor();
   }
@@ -49,15 +52,19 @@ export class NotificacionesComponent implements OnInit {
   }
 
   onCreate() {
-    this.notificacionesservice.createNotification(this.autor.id, this.CreateNotificationForm.value).subscribe(
-      res => {
-        this.cargarNotificaciones();
-        this.toastr.success('Notificación creada y enviada correctamente.');
-      },
-      error => {
-        this.toastr.error('Ha ocurrido un error.');
-      }
-    )
+
+    if (this.validarFormulario()) {
+      this.notificacionesservice.createNotification(this.autor.id, this.CreateNotificationForm.value).subscribe(
+        res => {
+          this.limpiarFormulario();
+          this.cargarNotificaciones();
+          this.toastr.success('Notificación creada y enviada correctamente.');
+        },
+        error => {
+          this.toastr.error('Ha ocurrido un error.');
+        }
+      );
+    }
   }
 
   eliminarNotificacion(notificacion) {
@@ -70,6 +77,24 @@ export class NotificacionesComponent implements OnInit {
         this.toastr.error('Ha ocurrido un error');
       }
     )
+  }
+
+  validarFormulario() {
+    if (this.CreateNotificationForm.value['titulo'] === '' || this.CreateNotificationForm.value['cuerpo'] === '') {
+      this.errores = true;
+      this.ErrorForm = 'Rellena todos los campos.';
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+  limpiarFormulario() {
+    this.CreateNotificationForm.reset();
+    this.CreateNotificationForm.value['titulo'];
+    this.CreateNotificationForm.value['cuerpo'];
+    this.ErrorForm = undefined;
   }
 
 }

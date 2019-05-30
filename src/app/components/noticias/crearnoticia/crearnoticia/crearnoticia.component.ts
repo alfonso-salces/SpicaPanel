@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NoticiasService } from '../../../../services/noticias/noticias.service';
 import { CategoriasService } from '../../../../services/categorias/categorias.service';
@@ -19,17 +19,18 @@ export class CrearnoticiaComponent implements OnInit {
   fichero: File = null;
   categorias: any[];
   autor: Usuario;
+  mensajeError = '';
+  errorControl = false;
 
   showSuccessMessage = false;
-  serverErrorMessages: string;
 
   // tslint:disable-next-line:max-line-length
   constructor(private sanitizer: DomSanitizer, private noticiasservice: NoticiasService, private authservice: AuthService, private global: Global, private toastr: ToastrService, private categoriasservice: CategoriasService, private router: Router) {
     this.form = new FormGroup({
-      html: new FormControl(),
+      html: new FormControl('', [Validators.required, Validators.minLength(100)]),
       image: new FormControl(),
-      titular: new FormControl(),
-      categoria_id: new FormControl(),
+      titular: new FormControl('', Validators.required),
+      categoria_id: new FormControl('', Validators.required),
     });
   }
 
@@ -79,19 +80,35 @@ export class CrearnoticiaComponent implements OnInit {
 
   publicarNoticia() {
     this.cargarAutor();
-    if (this.fichero != null) {
-      this.noticiasservice.createNew(this.autor.id, this.form.value, this.fichero).subscribe(
-        res => {
-          this.serverErrorMessages = '';
-          this.toastr.success(res.toString());
-        },
-        error => {
-          this.toastr.error('Ha ocurrido un error.');
-        }
-      );
-    } else {
-      this.serverErrorMessages = 'Introduce una imagen, por favor.';
+    if (this.validarFormulario()) {
+      if (this.fichero != null) {
+        this.noticiasservice.createNew(this.autor.id, this.form.value, this.fichero).subscribe(
+          res => {
+            this.limpiarFormulario();
+            this.mensajeError = '';
+            this.toastr.success(res.toString());
+          },
+          error => {
+            console.log(error);
+            this.toastr.error(error.error['error']);
+          }
+        );
+      } else {
+        this.mensajeError = 'Introduce una imagen, por favor.';
+      }
     }
+  }
+
+  validarFormulario() {
+    if (this.form.valid) return true;
+    else false;
+  }
+
+  limpiarFormulario() {
+    this.form.value['html'] = '';
+    this.form.value['titular'] = '';
+    this.mensajeError = '';
+    this.form.reset();
   }
 
 }

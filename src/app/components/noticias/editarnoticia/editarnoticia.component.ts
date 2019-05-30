@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NoticiasService } from '../../../services/noticias/noticias.service';
 import { CategoriasService } from '../../../services/categorias/categorias.service';
@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { validateConfig } from '@angular/router/src/config';
 @Component({
   selector: 'app-editarnoticia',
   templateUrl: './editarnoticia.component.html',
@@ -27,10 +28,10 @@ export class EditarnoticiaComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer, private noticiasservice: NoticiasService, private authservice: AuthService, private global: Global, private toastr: ToastrService, private categoriasservice: CategoriasService, private router: Router) {
     this.noticia = this.noticiasservice.getNoticia();
     this.form = new FormGroup({
-      html: new FormControl(this.noticia.contenido),
+      html: new FormControl(this.noticia.contenido, [Validators.required, Validators.minLength(100)]),
       image: new FormControl(),
-      titular: new FormControl(this.noticia.titular),
-      categoria_id: new FormControl(this.noticia.categoria_id),
+      titular: new FormControl(this.noticia.titular, Validators.required),
+      categoria_id: new FormControl(this.noticia.categoria_id, Validators.required),
     });
   }
 
@@ -80,21 +81,27 @@ export class EditarnoticiaComponent implements OnInit {
 
   publicarNoticia() {
     this.cargarAutor();
-    console.log(this.noticia);
-    if (this.fichero == null) {
-      this.serverErrorMessages = 'Introduce una imagen, por favor.';
-    } else {
-      this.noticiasservice.editNew(this.noticia.id, this.autor.id, this.form.value, this.fichero).subscribe(
-        res => {
-          this.serverErrorMessages = '';
-          this.toastr.success(res.toString());
-        },
-        error => {
-          this.toastr.error('Ha ocurrido un error.');
-        }
-      );
+    if (this.validarFormulario) {
+      if (this.fichero == null) {
+        this.serverErrorMessages = 'Introduce una imagen, por favor.';
+      } else {
+        this.noticiasservice.editNew(this.noticia.id, this.autor.id, this.form.value, this.fichero).subscribe(
+          res => {
+            this.serverErrorMessages = '';
+            this.toastr.success(res.toString());
+          },
+          error => {
+            this.toastr.error('Ha ocurrido un error.');
+          }
+        );
+      }
     }
 
+  }
+
+  validarFormulario() {
+    if (this.form.valid && this.fichero != null) return true;
+    else return false;
   }
 
 }

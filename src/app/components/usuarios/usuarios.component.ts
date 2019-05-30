@@ -26,8 +26,8 @@ export class UsuariosComponent implements OnInit {
 
   UserForm = new FormGroup({
     nick: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     nombre: new FormControl('', Validators.required),
     rol: new FormControl('', Validators.required),
     image: new FormControl(),
@@ -35,8 +35,8 @@ export class UsuariosComponent implements OnInit {
 
   CreateUserForm = new FormGroup({
     nick: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     nombre: new FormControl('', Validators.required),
     rol: new FormControl('', Validators.required),
     image: new FormControl(),
@@ -80,6 +80,18 @@ export class UsuariosComponent implements OnInit {
   limpiarFormulario() {
     this.UserForm.reset();
     this.CreateUserForm.reset();
+    this.UserForm.value['nick'] = '';
+    this.UserForm.value['email'] = '';
+    this.UserForm.value['password'] = '';
+    this.UserForm.value['nombre'] = '';
+    this.UserForm.value['rol'] = '';
+    this.UserForm.value['image'] = '';
+    this.CreateUserForm.value['nick'] = '';
+    this.CreateUserForm.value['email'] = '';
+    this.CreateUserForm.value['password'] = '';
+    this.CreateUserForm.value['nombre'] = '';
+    this.CreateUserForm.value['rol'] = '';
+    this.CreateUserForm.value['image'] = '';
     this.serverErrorMessages = '';
     this.showSuccessMessage = false;
     this.showSuccessMessageCreate = false;
@@ -88,7 +100,7 @@ export class UsuariosComponent implements OnInit {
   eliminarUsuario(user) {
     this.usuariosservice.deleteUser(user.id).subscribe(
       res => {
-        this.toastr.success('¡Usuario deshabilitado correctamente!')
+        this.toastr.success(JSON.stringify(res));
         this.cargarUsuarios();
       },
       error => {
@@ -104,14 +116,14 @@ export class UsuariosComponent implements OnInit {
         res => {
           this.serverErrorMessages = '';
           this.showSuccessMessage = true;
-          this.UserForm.reset();
+          this.limpiarFormulario();
           this.fichero = null;
           this.cargarUsuarios();
           this.toastr.success('¡Usuario editado correctamente!')
         },
-        err => {
-          console.log(err);
-          this.toastr.error('Ha ocurrido un error');
+        error => {
+          console.log(error);
+          this.serverErrorMessages = error.error['error'];
         }
       );
     } else {
@@ -120,12 +132,12 @@ export class UsuariosComponent implements OnInit {
           this.serverErrorMessages = '';
           this.showSuccessMessage = true;
           this.UserForm.reset();
-          this.cargarUsuarios();
+          this.limpiarFormulario();
           this.toastr.success('¡Usuario editado correctamente!')
         },
-        err => {
-          console.log(err);
-          this.toastr.error('Ha ocurrido un error');
+        error => {
+          console.log(error);
+          this.serverErrorMessages = error.error['error'];
         }
       );
     }
@@ -142,10 +154,11 @@ export class UsuariosComponent implements OnInit {
           this.CreateUserForm.reset();
           this.cargarUsuarios();
           this.toastr.success('¡Usuario creado correctamente!')
+          this.limpiarFormulario();
         },
-        err => {
-          console.log(err);
-          this.toastr.success('Ha ocurrido un error.');
+        error => {
+          this.serverErrorMessages = error.error['error'];
+          this.toastr.error(error.error['error']);
         }
       );
     } else {
@@ -160,9 +173,9 @@ export class UsuariosComponent implements OnInit {
     this.UserForm.get('nombre').setValue(user.nombre);
     this.UserForm.get('rol').setValue(user.rol);
     this.UserForm.value['nick'] = user.nick;
-    this.UserForm.value['email'] = user.nick;
-    this.UserForm.value['password'] = user.nick;
-    this.UserForm.value['nombre'] = user.nick;
+    this.UserForm.value['email'] = user.email;
+    this.UserForm.value['password'] = user.password;
+    this.UserForm.value['nombre'] = user.nombre;
     this.UserForm.value['rol'] = user.rol;
   }
 

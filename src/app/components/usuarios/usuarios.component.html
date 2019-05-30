@@ -9,7 +9,7 @@
   <div class="form-group">
     <input class="form-control mb-2" type="text" placeholder="Buscar por nick" [(ngModel)]="filterUser">
   </div>
-  <table class="table table-bordered table-hover mb-3">
+  <table class="table table-bordered table-hover">
     <thead class="bg-danger text-white">
       <tr>
         <th scope="col" (click)="invertirUsuarios()">Id</th>
@@ -42,7 +42,6 @@
       </tr>
     </tbody>
   </table>
-
   <!-- MODAL EDITAR USUARIO -->
 
   <div class="modal fade" id="editar-usuario-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -92,7 +91,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal"
                 (click)="limpiarFormulario()">Cerrar</button>
-              <button type="button" class="btn btn-primary" type="submit">Editar</button>
+              <button type="button" class="btn btn-primary" type="submit" [disabled]="!UserForm.valid">Editar</button>
             </div>
             <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
               *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
@@ -154,7 +153,8 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal"
                 (click)="limpiarFormulario()">Cerrar</button>
-              <button type="button" class="btn btn-primary" type="submit">Crear</button>
+              <button type="button" class="btn btn-primary" type="submit"
+                [disabled]="!CreateUserForm.valid">Crear</button>
             </div>
             <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
               *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>

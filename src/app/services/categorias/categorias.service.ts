@@ -38,7 +38,7 @@ export class CategoriasService {
     } else {
       const cuerpo = new FormData();
       cuerpo.append('nombre', formulario['nombre']);
-      return this.http.put(this.global.URL_API + '/category/' + id, cuerpo, {
+      return this.http.put(this.global.URL_API + '/editcategory/' + id, cuerpo, {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authservice.getToken())
       });
     }

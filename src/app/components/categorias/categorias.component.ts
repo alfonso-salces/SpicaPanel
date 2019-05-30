@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Global } from 'src/app/services/global/global';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoriasService } from '../../services/categorias/categorias.service';
 
 declare var $;
@@ -24,13 +24,11 @@ export class CategoriasComponent implements OnInit {
   serverErrorMessages: string;
 
   CreateCategoryForm = new FormGroup({
-    nombre: new FormControl(''),
-    image: new FormControl(),
+    nombre: new FormControl('', Validators.required),
   });
 
   EditCategoryForm = new FormGroup({
-    nombre: new FormControl(''),
-    image: new FormControl(),
+    nombre: new FormControl('', Validators.required),
   });
 
   filterCategory = '';
@@ -46,8 +44,8 @@ export class CategoriasComponent implements OnInit {
   }
 
   onFileSelectedEdit(event) {
-    this.fichero = <File>event.target.files[0];
-    this.EditCategoryForm.get('image').setValue(this.fichero, this.fichero.name);
+    this.ficheroEdit = <File>event.target.files[0];
+    this.EditCategoryForm.get('image').setValue(this.ficheroEdit, this.ficheroEdit.name);
   }
 
   onFileSelectedCreate(event) {
@@ -81,20 +79,32 @@ export class CategoriasComponent implements OnInit {
   onEdit() {
     if (this.ficheroEdit != null) {
       this.showSuccessMessage = false;
-      this.categoriasservice.editCategory(this.selectedCategory.id, this.EditCategoryForm, this.ficheroEdit).subscribe(
+      this.categoriasservice.editCategory(this.selectedCategory.id, this.EditCategoryForm.value, this.ficheroEdit).subscribe(
         res => {
           this.serverErrorMessages = '';
           this.ficheroEdit = null;
-          this.CreateCategoryForm.reset();
+          this.limpiarFormularios();
           this.cargarCategorias();
-          this.toastr.success('¡Categoría creada correctamente!')
+          this.toastr.success('¡Categoría editada correctamente!')
         },
         error => {
           this.toastr.error('Ha ocurrido un error.');
         }
       );
     } else {
-
+      this.showSuccessMessage = false;
+      this.categoriasservice.editCategory(this.selectedCategory.id, this.EditCategoryForm.value, null).subscribe(
+        res => {
+          this.serverErrorMessages = '';
+          this.ficheroEdit = null;
+          this.limpiarFormularios();
+          this.cargarCategorias();
+          this.toastr.success('¡Categoría editada correctamente!')
+        },
+        error => {
+          this.toastr.error('Ha ocurrido un error.');
+        }
+      );
     }
   }
 
@@ -111,7 +121,7 @@ export class CategoriasComponent implements OnInit {
           this.serverErrorMessages = '';
           this.showSuccessMessageCreate = true;
           this.fichero = null;
-          this.CreateCategoryForm.reset();
+          this.limpiarFormularios();
           this.cargarCategorias();
           this.toastr.success('¡Categoría creada correctamente!')
         },
@@ -122,6 +132,13 @@ export class CategoriasComponent implements OnInit {
     } else {
       this.serverErrorMessages = 'Introduce una imagen, por favor.';
     }
+  }
+
+  limpiarFormularios() {
+    this.CreateCategoryForm.value['nombre'] = '';
+    this.EditCategoryForm.value['nombre'] = '';
+    this.CreateCategoryForm.reset();
+    this.EditCategoryForm.reset();
   }
 
 }

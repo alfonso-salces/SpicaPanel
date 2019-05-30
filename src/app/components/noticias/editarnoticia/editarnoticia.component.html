@@ -6,7 +6,8 @@
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modal-vista-previa">Vista
+  <button type="submit" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modal-vista-previa"
+    [disabled]="!form.valid">Vista
     Previa</button>
 </div>
 
@@ -46,7 +47,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Editar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Editar</button>
           <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
             *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
         </div>

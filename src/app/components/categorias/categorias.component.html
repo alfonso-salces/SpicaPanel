@@ -61,7 +61,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" type="submit">Editar</button>
+                            <button type="button" class="btn btn-primary" type="submit"
+                                [disabled]="!EditCategoryForm.valid">Editar</button>
                         </div>
                         <small id=" emailHelp"
                             class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
@@ -104,7 +105,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" type="submit">Crear</button>
+                            <button type="button" class="btn btn-primary" type="submit"
+                                [disabled]="!CreateCategoryForm.valid">Crear</button>
                         </div>
                         <small id=" emailHelp"
                             class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"

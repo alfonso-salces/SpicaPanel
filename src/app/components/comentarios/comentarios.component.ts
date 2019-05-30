@@ -20,8 +20,8 @@ export class ComentariosComponent implements OnInit {
   comentarioSelected: any;
 
   CreateCommentForm = new FormGroup({
-    cuerpo: new FormControl(''),
-    noticia_id: new FormControl(''),
+    cuerpo: new FormControl('', Validators.required),
+    noticia_id: new FormControl('', Validators.required),
     autor_id: new FormControl(''),
   });
 
@@ -84,11 +84,18 @@ export class ComentariosComponent implements OnInit {
       res => {
         this.cargarComentarios();
         this.toastr.success(res.toString());
+        this.limpiarFormulario();
       },
       error => {
         this.toastr.error('Ha ocurrido un error.');
       }
     );
+  }
+
+  limpiarFormulario() {
+    this.CreateCommentForm.value['cuerpo'] = '';
+    this.CreateCommentForm.value['noticia_id'] = '';
+    this.CreateCommentForm.reset();
   }
 
 }

@@ -6,7 +6,8 @@
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modal-vista-previa">Vista
+  <button type="submit" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modal-vista-previa"
+    [disabled]="form.value['html'].length < 100">Vista
     Previa</button>
 </div>
 
@@ -41,14 +42,14 @@
           <option *ngFor="let categoria of categorias; let i of index" value="{{categoria.id}}">{{categoria.nombre}}
           </option>
         </select>
-        <div class=" modal-body">
-          <div [ngxSummernoteView]="form.get('html').value"></div>
+        <div class="modal-body">
+          <div [ngxSummernoteView]="form.get('html').value" width="100%"></div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Publicar</button>
           <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
-            *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
+            *ngIf="form.value['html'].length < 100">¡El texto debe tener más de 100 carácteres!</small>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Publicar</button>
         </div>
       </div>
     </div>
