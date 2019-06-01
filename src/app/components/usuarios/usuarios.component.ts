@@ -12,6 +12,8 @@ import { Global } from 'src/app/services/global/global';
 })
 export class UsuariosComponent implements OnInit {
 
+  config: any;
+
   orden: any;
   usuario: any;
   usuarios: any[];
@@ -51,6 +53,17 @@ export class UsuariosComponent implements OnInit {
     this.cargarUsuarios();
   }
 
+  async cargarConfiguracion() {
+    this.config = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.usuarios.length
+    };
+  }
+
+  pageChanged(event) {
+    this.config.currentPage = event;
+  }
 
   onFileSelected(event) {
     this.fichero = <File>event.target.files[0];
@@ -66,6 +79,7 @@ export class UsuariosComponent implements OnInit {
     this.usuariosservice.getUsers().subscribe(
       res => {
         this.usuarios = res as any[];
+        this.cargarConfiguracion();
       },
       error => {
         console.log(error);

@@ -22,7 +22,7 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody *ngFor="let user of usuarios | filterUser: filterUser">
+    <tbody *ngFor="let user of usuarios | filterUser: filterUser | paginate: config">
       <tr scope="row">
         <td scope="row">{{user.id}}</td>
         <td scope="row">{{user.nick}}</td>
@@ -42,6 +42,8 @@
       </tr>
     </tbody>
   </table>
+  <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="5">
+  </pagination-controls>
   <!-- MODAL EDITAR USUARIO -->
 
   <div class="modal fade" id="editar-usuario-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

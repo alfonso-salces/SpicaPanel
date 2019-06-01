@@ -24,7 +24,7 @@ import { NoticiasPipe } from './services/filtros/noticias.pipe';
 import { ComentariosPipe } from './services/filtros/comentarios.pipe';
 import { NotificacionesPipe } from './services/filtros/notificaciones.pipe';
 import { EditarnoticiaComponent } from './components/noticias/editarnoticia/editarnoticia.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -53,6 +53,7 @@ import { EditarnoticiaComponent } from './components/noticias/editarnoticia/edit
     HttpClientModule,
     NgxSummernoteModule,
     BrowserAnimationsModule,
+    NgxPaginationModule,
     ToastrModule.forRoot(),
   ],
   providers: [Global],

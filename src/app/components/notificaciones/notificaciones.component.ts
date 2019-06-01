@@ -12,6 +12,8 @@ import { NotificacionesService } from 'src/app/services/notificaciones/notificac
 })
 export class NotificacionesComponent implements OnInit {
 
+  configuracion: any;
+
   notifications: any[];
   autor = new Usuario;
   filterNotification = '';
@@ -32,6 +34,18 @@ export class NotificacionesComponent implements OnInit {
     this.cargarAutor();
   }
 
+  async cargarConfiguracion() {
+    this.configuracion = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.notifications.length
+    };
+  }
+
+  pageChanged(event) {
+    this.configuracion.currentPage = event;
+  }
+
   cargarAutor() {
     this.autor = this.authservice.extraertoken();
   }
@@ -44,6 +58,7 @@ export class NotificacionesComponent implements OnInit {
     this.notificacionesservice.getNotifications().subscribe(
       res => {
         this.notifications = res as any[];
+        this.cargarConfiguracion();
       },
       error => {
         console.log(error);
@@ -76,7 +91,7 @@ export class NotificacionesComponent implements OnInit {
       error => {
         this.toastr.error('Ha ocurrido un error');
       }
-    )
+    );
   }
 
   validarFormulario() {

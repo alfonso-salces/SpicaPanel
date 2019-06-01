@@ -18,7 +18,7 @@
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
-        <tbody *ngFor="let categoria of categorias | filterCategory: filterCategory">
+        <tbody *ngFor="let categoria of categorias | filterCategory: filterCategory | paginate: configuracion">
             <tr>
                 <td scope="row">{{categoria.id}}</td>
                 <td scope="row" class="text-truncate" style="max-width: 100px">{{categoria.nombre}}</td>
@@ -34,6 +34,8 @@
             </tr>
         </tbody>
     </table>
+    <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="5">
+    </pagination-controls>
 
     <!-- MODAL EDIT CATEGORY -->
     <div class="modal fade" id="editar-categoria-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
