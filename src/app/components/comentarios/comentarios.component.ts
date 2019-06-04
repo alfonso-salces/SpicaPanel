@@ -13,6 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ComentariosComponent implements OnInit {
 
+  configuracion: any;
+
   comentarios: any[];
   noticias: any[];
   filterComment = '';
@@ -33,10 +35,25 @@ export class ComentariosComponent implements OnInit {
     this.cargarAutor();
   }
 
+  async cargarConfiguracion() {
+    this.configuracion = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.comentarios.length
+    };
+  }
+
+  pageChanged(event) {
+    this.configuracion.currentPage = event;
+  }
+
   cargarComentarios() {
     this.comentariosservice.getComments().subscribe(
       res => {
         this.comentarios = res as any[];
+        setTimeout(() => {
+          this.cargarConfiguracion();
+        });
       },
       error => {
         console.log(error);

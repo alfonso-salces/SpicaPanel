@@ -57,6 +57,13 @@
       </tr>
     </tbody>
   </table>
+  <pagination-controls
+    (pageChange)="pageChanged($event)"
+    previousLabel="Anterior"
+    nextLabel="Siguiente"
+    maxSize="5"
+  >
+  </pagination-controls>
 </div>
 
 <div

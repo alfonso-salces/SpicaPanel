@@ -13,6 +13,7 @@ declare var $;
 })
 export class CategoriasComponent implements OnInit {
 
+  configuracion: any;
   categorias: any[];
   fichero: File = null;
   ficheroEdit: File = null;
@@ -39,6 +40,18 @@ export class CategoriasComponent implements OnInit {
     this.cargarCategorias();
   }
 
+  async cargarConfiguracion() {
+    this.configuracion = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.categorias.length
+    };
+  }
+
+  pageChanged(event) {
+    this.configuracion.currentPage = event;
+  }
+
   cambiarOrden() {
     this.categorias.reverse();
   }
@@ -57,6 +70,9 @@ export class CategoriasComponent implements OnInit {
     this.categoriasservice.getCategories().subscribe(
       res => {
         this.categorias = res as any[];
+        setTimeout(() => {
+          this.cargarConfiguracion();
+        });
       },
       error => {
         console.log(error);
@@ -67,7 +83,7 @@ export class CategoriasComponent implements OnInit {
   eliminarCategoria(categoria) {
     this.categoriasservice.deleteCategory(categoria.id).subscribe(
       res => {
-        this.toastr.success('Categoría eliminada correctamente.')
+        this.toastr.success('Categoría eliminada correctamente.');
         this.categorias.splice(this.categorias.indexOf(categoria), 1);
       },
       error => {
