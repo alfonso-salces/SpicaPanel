@@ -18,48 +18,84 @@
   </div>
 
  --------->
-<nav class="navbar navbar-expand-md navbar-dark bg-danger mb-5 sticky-top">
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+<nav
+  class="navbar navbar-expand-md navbar-dark bg-danger mb-5 sticky-top justify-content-between"
+>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
-
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item active enlaces-bl">
         <a class="nav-link" routerLink="/">Inicio</a>
       </li>
       <li class="nav-item dropdown active" *ngIf="!isLogged()">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
           Iniciar Sesión
         </a>
 
         <div class="dropdown-menu">
-
-          <form class="px-4 py-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
+          <form
+            class="px-4 py-3"
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmit()"
+          >
             <div class="form-group">
               <label>Email</label>
-              <input type="email" placeholder="Email" id="email" name="email" formControlName="email">
+              <input
+                type="email"
+                placeholder="Email"
+                id="email"
+                name="email"
+                formControlName="email"
+              />
             </div>
 
             <div class="form-group">
               <label>Contraseña</label>
-              <input type="password" placeholder="Contraseña" id="password" name="password" formControlName="password">
+              <input
+                type="password"
+                placeholder="Contraseña"
+                id="password"
+                name="password"
+                formControlName="password"
+              />
             </div>
 
-            <button value="Iniciar Sesión" class="btn btn-danger" type="submit">Login</button>
-            <small id="emailHelp" class="form-text text-danger"
-              *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
-            <small id="emailHelp" class="form-text text-success" *ngIf="showSucessMessage">¡Has iniciado sesión
-              correctamente!</small>
+            <button value="Iniciar Sesión" class="btn btn-danger" type="submit">
+              Login
+            </button>
+            <small
+              id="emailHelp"
+              class="form-text text-danger"
+              *ngIf="serverErrorMessages"
+              >{{ serverErrorMessages }}</small
+            >
+            <small
+              id="emailHelp"
+              class="form-text text-success"
+              *ngIf="showSucessMessage"
+              >¡Has iniciado sesión correctamente!</small
+            >
           </form>
-
         </div>
-
       </li>
 
       <!-- COMPROBACIÓN MODERADOR -->
@@ -82,25 +118,30 @@
       <li class="nav-item active enlaces-bl" *ngIf="isRedactor()">
         <a class="nav-link" routerLink="/notificaciones">Notificaciones</a>
       </li>
-
-      <!-- COMPROBACIÓN LOGGED -->
-
-      <li class="nav-item active enlaces-bl navbar-right" *ngIf="isLogged()">
+    </ul>
+    <!-- COMPROBACIÓN LOGGED -->
+    <ul class="navbar-nav">
+      <li
+        class="nav-item active enlaces-bl navbar-right my-0 my-lg-0"
+        *ngIf="isLogged()"
+      >
         <a class="nav-link" routerLink="/profile">Mi Perfil</a>
       </li>
-      <li class="nav-item active enlaces-bl navbar-right" *ngIf="isLogged()">
-        <a class="nav-link" routerLink="/" (click)="onLogout()">Cerrar Sesión</a>
+      <li
+        class="nav-item active enlaces-bl navbar-right my-0 my-lg-0"
+        *ngIf="isLogged()"
+      >
+        <a class="nav-link" routerLink="/" (click)="onLogout()"
+          >Cerrar Sesión</a
+        >
       </li>
     </ul>
-
   </div>
-
 </nav>
 
 <router-outlet></router-outlet>
 
 <div class="posicionfooter">
-
   <ul class="nav justify-content-center bg-secondary">
     <li class="nav-item">
       <a class="nav-link text-light enlaces-bl" href="#">¿Quiénes somos?</a>
@@ -114,14 +155,17 @@
   </ul>
 
   <div class="bg-dark">
-
-    <p class="text-light text-center pt-2">Gestiona tus contenidos con nosotros.</p>
+    <p class="text-light text-center pt-2">
+      Gestiona tus contenidos con nosotros.
+    </p>
     <ul class="nav justify-content-center">
       <li class="nav-item">
-        <a class="nav-link text-light enlaces-bl" href="https://github.com/Arfonzo2k18">© 2019 - Alfonso Salces</a>
+        <a
+          class="nav-link text-light enlaces-bl"
+          href="https://github.com/Arfonzo2k18"
+          >© 2019 - Alfonso Salces</a
+        >
       </li>
     </ul>
-
   </div>
-
 </div>
