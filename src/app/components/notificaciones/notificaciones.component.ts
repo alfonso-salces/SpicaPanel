@@ -12,8 +12,6 @@ import { NotificacionesService } from 'src/app/services/notificaciones/notificac
 })
 export class NotificacionesComponent implements OnInit {
 
-  configuracion: any;
-
   notifications: any[];
   autor = new Usuario;
   filterNotification = '';
@@ -34,18 +32,6 @@ export class NotificacionesComponent implements OnInit {
     this.cargarAutor();
   }
 
-  async cargarConfiguracion() {
-    this.configuracion = {
-      itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.notifications.length
-    };
-  }
-
-  pageChanged(event) {
-    this.configuracion.currentPage = event;
-  }
-
   cargarAutor() {
     this.autor = this.authservice.extraertoken();
   }
@@ -58,7 +44,6 @@ export class NotificacionesComponent implements OnInit {
     this.notificacionesservice.getNotifications().subscribe(
       res => {
         this.notifications = res as any[];
-        this.cargarConfiguracion();
       },
       error => {
         console.log(error);
@@ -99,15 +84,16 @@ export class NotificacionesComponent implements OnInit {
       this.errores = true;
       this.ErrorForm = 'Rellena todos los campos.';
       return false;
-    }
-    else {
+    } else {
       return true;
     }
   }
 
   limpiarFormulario() {
     this.CreateNotificationForm.reset();
+    // tslint:disable-next-line:no-unused-expression
     this.CreateNotificationForm.value['titulo'];
+    // tslint:disable-next-line:no-unused-expression
     this.CreateNotificationForm.value['cuerpo'];
     this.ErrorForm = undefined;
   }

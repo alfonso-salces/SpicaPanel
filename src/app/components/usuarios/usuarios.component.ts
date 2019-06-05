@@ -12,8 +12,6 @@ import { Global } from 'src/app/services/global/global';
 })
 export class UsuariosComponent implements OnInit {
 
-  config: any;
-
   orden: any;
   usuario: any;
   usuarios: any[];
@@ -53,18 +51,6 @@ export class UsuariosComponent implements OnInit {
     this.cargarUsuarios();
   }
 
-  async cargarConfiguracion() {
-    this.config = {
-      itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.usuarios.length
-    };
-  }
-
-  pageChanged(event) {
-    this.config.currentPage = event;
-  }
-
   onFileSelected(event) {
     this.fichero = <File>event.target.files[0];
     this.UserForm.get('image').setValue(this.fichero, this.fichero.name);
@@ -79,7 +65,6 @@ export class UsuariosComponent implements OnInit {
     this.usuariosservice.getUsers().subscribe(
       res => {
         this.usuarios = res as any[];
-        this.cargarConfiguracion();
       },
       error => {
         console.log(error);
@@ -133,7 +118,7 @@ export class UsuariosComponent implements OnInit {
           this.limpiarFormulario();
           this.fichero = null;
           this.cargarUsuarios();
-          this.toastr.success('¡Usuario editado correctamente!')
+          this.toastr.success('¡Usuario editado correctamente!');
         },
         error => {
           console.log(error);
@@ -147,7 +132,7 @@ export class UsuariosComponent implements OnInit {
           this.showSuccessMessage = true;
           this.UserForm.reset();
           this.limpiarFormulario();
-          this.toastr.success('¡Usuario editado correctamente!')
+          this.toastr.success('¡Usuario editado correctamente!');
         },
         error => {
           console.log(error);
@@ -167,7 +152,7 @@ export class UsuariosComponent implements OnInit {
           this.ficheroCrear = null;
           this.CreateUserForm.reset();
           this.cargarUsuarios();
-          this.toastr.success('¡Usuario creado correctamente!')
+          this.toastr.success('¡Usuario creado correctamente!');
           this.limpiarFormulario();
         },
         error => {

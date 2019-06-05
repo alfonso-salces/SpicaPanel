@@ -40,18 +40,6 @@ export class CategoriasComponent implements OnInit {
     this.cargarCategorias();
   }
 
-  async cargarConfiguracion() {
-    this.configuracion = {
-      itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.categorias.length
-    };
-  }
-
-  pageChanged(event) {
-    this.configuracion.currentPage = event;
-  }
-
   cambiarOrden() {
     this.categorias.reverse();
   }
@@ -70,9 +58,6 @@ export class CategoriasComponent implements OnInit {
     this.categoriasservice.getCategories().subscribe(
       res => {
         this.categorias = res as any[];
-        setTimeout(() => {
-          this.cargarConfiguracion();
-        });
       },
       error => {
         console.log(error);
@@ -87,7 +72,7 @@ export class CategoriasComponent implements OnInit {
         this.categorias.splice(this.categorias.indexOf(categoria), 1);
       },
       error => {
-        this.toastr.error('Ha ocurrido un error.')
+        this.toastr.error('Ha ocurrido un error.');
       }
     );
   }
@@ -101,7 +86,7 @@ export class CategoriasComponent implements OnInit {
           this.ficheroEdit = null;
           this.limpiarFormularios();
           this.cargarCategorias();
-          this.toastr.success('¡Categoría editada correctamente!')
+          this.toastr.success('¡Categoría editada correctamente!');
         },
         error => {
           this.toastr.error('Ha ocurrido un error.');
@@ -115,7 +100,7 @@ export class CategoriasComponent implements OnInit {
           this.ficheroEdit = null;
           this.limpiarFormularios();
           this.cargarCategorias();
-          this.toastr.success('¡Categoría editada correctamente!')
+          this.toastr.success('¡Categoría editada correctamente!');
         },
         error => {
           this.toastr.error('Ha ocurrido un error.');
@@ -139,7 +124,7 @@ export class CategoriasComponent implements OnInit {
           this.fichero = null;
           this.limpiarFormularios();
           this.cargarCategorias();
-          this.toastr.success('¡Categoría creada correctamente!')
+          this.toastr.success('¡Categoría creada correctamente!');
         },
         err => {
           this.toastr.error('Ha ocurrido un error.');
@@ -155,6 +140,7 @@ export class CategoriasComponent implements OnInit {
     this.EditCategoryForm.value['nombre'] = '';
     this.CreateCategoryForm.reset();
     this.EditCategoryForm.reset();
+    this.showSuccessMessageCreate = false;
   }
 
 }

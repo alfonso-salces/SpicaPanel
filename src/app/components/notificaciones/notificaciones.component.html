@@ -18,9 +18,8 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody
-      *ngFor="let notification of notifications | filterNotification: filterNotification | paginate: configuracion">
-      <tr>
+    <tbody *ngFor="let notification of notifications | filterNotification: filterNotification">
+      <tr class="mb-3">
         <td scope="row">{{notification.id}}</td>
         <td scope="row">{{notification.titulo}}</td>
         <td scope="row" class="text-truncate" style="max-width: 100px;">{{notification.cuerpo}}</td>
@@ -32,8 +31,6 @@
       </tr>
     </tbody>
   </table>
-  <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="5">
-  </pagination-controls>
 </div>
 
 <div class="modal fade" id="crear-notificacion-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
