@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from '../../services/usuarios/usuarios.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { Global } from 'src/app/services/global/global';
+import { Component, OnInit } from "@angular/core";
+import { UsuariosService } from "../../services/usuarios/usuarios.service";
+import { AuthService } from "src/app/services/auth.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import { Global } from "src/app/services/global/global";
+import { Usuario } from "src/app/models/usuario";
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss'],
+  selector: "app-usuarios",
+  templateUrl: "./usuarios.component.html",
+  styleUrls: ["./usuarios.component.scss"]
 })
 export class UsuariosComponent implements OnInit {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
   orden: any;
   usuario: any;
   usuarios: any[];
   fichero: File = null;
   ficheroCrear: File = null;
+  usuarioActivo: Usuario;
+  token: any;
 
   showSuccessMessage = false;
   showSuccessMessageCreate = false;
@@ -25,40 +31,58 @@ export class UsuariosComponent implements OnInit {
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   UserForm = new FormGroup({
-    nick: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    nombre: new FormControl('', Validators.required),
-    rol: new FormControl('', Validators.required),
-    image: new FormControl(),
+    nick: new FormControl("", Validators.required),
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [
+      Validators.required,
+      Validators.minLength(8)
+    ]),
+    nombre: new FormControl("", Validators.required),
+    rol: new FormControl("", Validators.required),
+    image: new FormControl()
   });
 
   CreateUserForm = new FormGroup({
-    nick: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    nombre: new FormControl('', Validators.required),
-    rol: new FormControl('', Validators.required),
-    image: new FormControl(),
+    nick: new FormControl("", Validators.required),
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [
+      Validators.required,
+      Validators.minLength(8)
+    ]),
+    nombre: new FormControl("", Validators.required),
+    rol: new FormControl("", Validators.required),
+    image: new FormControl()
   });
 
-  filterUser = '';
+  filterUser = "";
 
   // tslint:disable-next-line:max-line-length
-  constructor(private usuariosservice: UsuariosService, private authservice: AuthService, private toastr: ToastrService, private global: Global) { }
+  constructor(
+    private usuariosservice: UsuariosService,
+    private authservice: AuthService,
+    private toastr: ToastrService,
+    private global: Global
+  ) {}
 
   ngOnInit() {
     this.cargarUsuarios();
+<<<<<<< HEAD
+=======
+    this.cargarUsuarioActivo();
+>>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
   }
 
   onFileSelected(event) {
     this.fichero = <File>event.target.files[0];
-    this.UserForm.get('image').setValue(this.fichero, this.fichero.name);
+    this.UserForm.get("image").setValue(this.fichero, this.fichero.name);
   }
 
   onFileSelectedCreate(event) {
     this.ficheroCrear = <File>event.target.files[0];
-    this.CreateUserForm.get('image').setValue(this.ficheroCrear, this.ficheroCrear.name);
+    this.CreateUserForm.get("image").setValue(
+      this.ficheroCrear,
+      this.ficheroCrear.name
+    );
   }
 
   cargarUsuarios() {
@@ -72,6 +96,10 @@ export class UsuariosComponent implements OnInit {
     );
   }
 
+  cargarUsuarioActivo() {
+    this.usuarioActivo = this.authservice.extraertoken();
+  }
+
   invertirUsuarios() {
     this.usuarios.reverse();
   }
@@ -79,19 +107,19 @@ export class UsuariosComponent implements OnInit {
   limpiarFormulario() {
     this.UserForm.reset();
     this.CreateUserForm.reset();
-    this.UserForm.value['nick'] = '';
-    this.UserForm.value['email'] = '';
-    this.UserForm.value['password'] = '';
-    this.UserForm.value['nombre'] = '';
-    this.UserForm.value['rol'] = '';
-    this.UserForm.value['image'] = '';
-    this.CreateUserForm.value['nick'] = '';
-    this.CreateUserForm.value['email'] = '';
-    this.CreateUserForm.value['password'] = '';
-    this.CreateUserForm.value['nombre'] = '';
-    this.CreateUserForm.value['rol'] = '';
-    this.CreateUserForm.value['image'] = '';
-    this.serverErrorMessages = '';
+    this.UserForm.value["nick"] = "";
+    this.UserForm.value["email"] = "";
+    this.UserForm.value["password"] = "";
+    this.UserForm.value["nombre"] = "";
+    this.UserForm.value["rol"] = "";
+    this.UserForm.value["image"] = "";
+    this.CreateUserForm.value["nick"] = "";
+    this.CreateUserForm.value["email"] = "";
+    this.CreateUserForm.value["password"] = "";
+    this.CreateUserForm.value["nombre"] = "";
+    this.CreateUserForm.value["rol"] = "";
+    this.CreateUserForm.value["image"] = "";
+    this.serverErrorMessages = "";
     this.showSuccessMessage = false;
     this.showSuccessMessageCreate = false;
   }
@@ -103,14 +131,19 @@ export class UsuariosComponent implements OnInit {
         this.cargarUsuarios();
       },
       error => {
-        this.toastr.error('Ha ocurrido un error.');
+        this.toastr.error("Ha ocurrido un error.");
       }
     );
   }
 
   onSubmit() {
+    this.enviarEdicion();
+  }
+
+  enviarEdicion() {
     if (this.fichero != null) {
       this.showSuccessMessage = false;
+<<<<<<< HEAD
       this.usuariosservice.editUser(this.usuario.id, this.UserForm.value, this.fichero).subscribe(
         res => {
           this.serverErrorMessages = '';
@@ -139,12 +172,54 @@ export class UsuariosComponent implements OnInit {
           this.serverErrorMessages = error.error['error'];
         }
       );
+=======
+      this.usuariosservice
+        .editUser(this.usuario.id, this.UserForm.value, this.fichero)
+        .subscribe(
+          res => {
+            if (this.usuario.id == this.usuarioActivo.id) {
+              this.authservice.setToken(res["token"]);
+            }
+            this.serverErrorMessages = "";
+            this.showSuccessMessage = true;
+            this.limpiarFormulario();
+            this.fichero = null;
+            this.toastr.success("¡Usuario editado correctamente!");
+            this.cargarUsuarios();
+          },
+          error => {
+            console.log(error);
+            this.serverErrorMessages = error.error["error"];
+          }
+        );
+    } else {
+      this.usuariosservice
+        .editUser(this.usuario.id, this.UserForm.value, null)
+        .subscribe(
+          res => {
+            if (this.usuario.id == this.usuarioActivo.id) {
+              this.authservice.setToken(res["token"]);
+            }
+            this.serverErrorMessages = "";
+            this.showSuccessMessage = true;
+            this.UserForm.reset();
+            this.limpiarFormulario();
+            this.toastr.success("¡Usuario editado correctamente!");
+            this.cargarUsuarios();
+          },
+          error => {
+            console.log(error);
+            this.serverErrorMessages = error.error["error"];
+          }
+        );
+>>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
     }
   }
 
   onCreate() {
     if (this.ficheroCrear != null) {
       this.showSuccessMessage = false;
+<<<<<<< HEAD
       this.usuariosservice.createUser(this.CreateUserForm.value, this.ficheroCrear).subscribe(
         res => {
           this.serverErrorMessages = '';
@@ -160,22 +235,40 @@ export class UsuariosComponent implements OnInit {
           this.toastr.error(error.error['error']);
         }
       );
+=======
+      this.usuariosservice
+        .createUser(this.CreateUserForm.value, this.ficheroCrear)
+        .subscribe(
+          res => {
+            this.serverErrorMessages = "";
+            this.showSuccessMessageCreate = true;
+            this.ficheroCrear = null;
+            this.CreateUserForm.reset();
+            this.cargarUsuarios();
+            this.toastr.success("¡Usuario creado correctamente!");
+            this.limpiarFormulario();
+          },
+          error => {
+            this.serverErrorMessages = error.error["error"];
+            this.toastr.error(error.error["error"]);
+          }
+        );
+>>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
     } else {
-      this.serverErrorMessages = 'Introduce una imagen, por favor.';
+      this.serverErrorMessages = "Introduce una imagen, por favor.";
     }
   }
 
   editarUsuario(user) {
     this.usuario = user;
-    this.UserForm.get('nick').setValue(user.nick);
-    this.UserForm.get('email').setValue(user.email);
-    this.UserForm.get('nombre').setValue(user.nombre);
-    this.UserForm.get('rol').setValue(user.rol);
-    this.UserForm.value['nick'] = user.nick;
-    this.UserForm.value['email'] = user.email;
-    this.UserForm.value['password'] = user.password;
-    this.UserForm.value['nombre'] = user.nombre;
-    this.UserForm.value['rol'] = user.rol;
+    this.UserForm.get("nick").setValue(user.nick);
+    this.UserForm.get("email").setValue(user.email);
+    this.UserForm.get("nombre").setValue(user.nombre);
+    this.UserForm.get("rol").setValue(user.rol);
+    this.UserForm.value["nick"] = user.nick;
+    this.UserForm.value["email"] = user.email;
+    this.UserForm.value["password"] = user.password;
+    this.UserForm.value["nombre"] = user.nombre;
+    this.UserForm.value["rol"] = user.rol;
   }
-
 }
