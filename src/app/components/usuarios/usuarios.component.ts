@@ -12,10 +12,6 @@ import { Usuario } from "src/app/models/usuario";
   styleUrls: ["./usuarios.component.scss"]
 })
 export class UsuariosComponent implements OnInit {
-<<<<<<< HEAD
-
-=======
->>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
   orden: any;
   usuario: any;
   usuarios: any[];
@@ -66,10 +62,6 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit() {
     this.cargarUsuarios();
-<<<<<<< HEAD
-=======
-    this.cargarUsuarioActivo();
->>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
   }
 
   onFileSelected(event) {
@@ -143,49 +135,16 @@ export class UsuariosComponent implements OnInit {
   enviarEdicion() {
     if (this.fichero != null) {
       this.showSuccessMessage = false;
-<<<<<<< HEAD
-      this.usuariosservice.editUser(this.usuario.id, this.UserForm.value, this.fichero).subscribe(
-        res => {
-          this.serverErrorMessages = '';
-          this.showSuccessMessage = true;
-          this.limpiarFormulario();
-          this.fichero = null;
-          this.cargarUsuarios();
-          this.toastr.success('¡Usuario editado correctamente!');
-        },
-        error => {
-          console.log(error);
-          this.serverErrorMessages = error.error['error'];
-        }
-      );
-    } else {
-      this.usuariosservice.editUser(this.usuario.id, this.UserForm.value, null).subscribe(
-        res => {
-          this.serverErrorMessages = '';
-          this.showSuccessMessage = true;
-          this.UserForm.reset();
-          this.limpiarFormulario();
-          this.toastr.success('¡Usuario editado correctamente!');
-        },
-        error => {
-          console.log(error);
-          this.serverErrorMessages = error.error['error'];
-        }
-      );
-=======
       this.usuariosservice
         .editUser(this.usuario.id, this.UserForm.value, this.fichero)
         .subscribe(
           res => {
-            if (this.usuario.id == this.usuarioActivo.id) {
-              this.authservice.setToken(res["token"]);
-            }
             this.serverErrorMessages = "";
             this.showSuccessMessage = true;
             this.limpiarFormulario();
             this.fichero = null;
-            this.toastr.success("¡Usuario editado correctamente!");
             this.cargarUsuarios();
+            this.toastr.success("¡Usuario editado correctamente!");
           },
           error => {
             console.log(error);
@@ -197,45 +156,23 @@ export class UsuariosComponent implements OnInit {
         .editUser(this.usuario.id, this.UserForm.value, null)
         .subscribe(
           res => {
-            if (this.usuario.id == this.usuarioActivo.id) {
-              this.authservice.setToken(res["token"]);
-            }
             this.serverErrorMessages = "";
             this.showSuccessMessage = true;
             this.UserForm.reset();
             this.limpiarFormulario();
             this.toastr.success("¡Usuario editado correctamente!");
-            this.cargarUsuarios();
           },
           error => {
             console.log(error);
             this.serverErrorMessages = error.error["error"];
           }
         );
->>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
     }
   }
 
   onCreate() {
     if (this.ficheroCrear != null) {
       this.showSuccessMessage = false;
-<<<<<<< HEAD
-      this.usuariosservice.createUser(this.CreateUserForm.value, this.ficheroCrear).subscribe(
-        res => {
-          this.serverErrorMessages = '';
-          this.showSuccessMessageCreate = true;
-          this.ficheroCrear = null;
-          this.CreateUserForm.reset();
-          this.cargarUsuarios();
-          this.toastr.success('¡Usuario creado correctamente!');
-          this.limpiarFormulario();
-        },
-        error => {
-          this.serverErrorMessages = error.error['error'];
-          this.toastr.error(error.error['error']);
-        }
-      );
-=======
       this.usuariosservice
         .createUser(this.CreateUserForm.value, this.ficheroCrear)
         .subscribe(
@@ -253,7 +190,6 @@ export class UsuariosComponent implements OnInit {
             this.toastr.error(error.error["error"]);
           }
         );
->>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
     } else {
       this.serverErrorMessages = "Introduce una imagen, por favor.";
     }

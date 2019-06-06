@@ -35,15 +35,6 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-<<<<<<< HEAD
-    <tbody *ngFor="let notification of notifications | filterNotification: filterNotification">
-      <tr class="mb-3">
-        <td scope="row">{{notification.id}}</td>
-        <td scope="row">{{notification.titulo}}</td>
-        <td scope="row" class="text-truncate" style="max-width: 100px;">{{notification.cuerpo}}</td>
-        <td scope="row">{{notification.Usuario.nombre}}</td>
-        <td scope="row">{{notification.createdAt}}</td>
-=======
     <tbody
       *ngFor="
         let notification of notifications
@@ -56,9 +47,10 @@
         <td scope="row" class="text-truncate" style="max-width: 100px;">
           {{ notification.cuerpo }}
         </td>
-        <td scope="row">{{ notification.Usuario.nombre }}</td>
+        <td scope="row">
+          {{ notification.Usuario.nombre }}
+        </td>
         <td scope="row">{{ notification.createdAt }}</td>
->>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
         <td scope="row">
           <a (click)="eliminarNotificacion(notification)"
             ><i class="fas fa-trash-alt mr-2 text-danger"></i
@@ -67,16 +59,6 @@
       </tr>
     </tbody>
   </table>
-<<<<<<< HEAD
-=======
-  <pagination-controls
-    (pageChange)="pageChanged($event)"
-    previousLabel="Anterior"
-    nextLabel="Siguiente"
-    maxSize="5"
-  >
-  </pagination-controls>
->>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
 </div>
 
 <div

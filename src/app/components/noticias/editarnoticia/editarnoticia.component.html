@@ -2,54 +2,104 @@
   <h2 class="text-center">Editar Noticia</h2>
 
   <div [formGroup]="form">
-    <div formControlName="html" [ngxSummernote]="config">
-    </div>
+    <div formControlName="html" [ngxSummernote]="config"></div>
   </div>
 
-  <button type="submit" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modal-vista-previa"
-    [disabled]="!form.valid">Vista
-    Previa</button>
+  <button
+    type="submit"
+    class="btn btn-primary mt-3"
+    data-toggle="modal"
+    data-target="#modal-vista-previa"
+    [disabled]="!form.valid"
+  >
+    Vista Previa
+  </button>
 </div>
 
-
 <!-- MODAL VISTA PREVIA -->
-<div class="modal fade" id="modal-vista-previa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true" #modalDirective>
+<div
+  class="modal fade"
+  id="modal-vista-previa"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  #modalDirective
+>
   <form [formGroup]="form" (ngSubmit)="publicarNoticia()">
     <div class="modal-dialog" role="document">
       <div class="modal-content" style="padding: 1rem;">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Selecciona fichero de portada:</h5>
+          <h5 class="modal-title" id="exampleModalLabel">
+            Selecciona fichero de portada:
+          </h5>
 
           <div class="input-group">
             <div class="custom-file">
-              <input type="file" class="custom-file-input" formControlName="image" id="image"
-                (change)="onFileSelected($event)">
-              <label class="custom-file-label" for="image">Selecciona fichero</label>
+              <input
+                type="file"
+                class="custom-file-input"
+                formControlName="image"
+                id="image"
+                (change)="onFileSelected($event)"
+              />
+              <label class="custom-file-label" for="image"
+                >Selecciona fichero</label
+              >
             </div>
           </div>
 
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            #closeAddExpenseModal
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="form-group">
           <label for="titular" class="col-form-label">Titular:</label>
-          <input type="text" class="form-control" formControlName="titular" id="titular" />
+          <input
+            type="text"
+            class="form-control"
+            formControlName="titular"
+            id="titular"
+          />
         </div>
         <label for="categoria_id" class="col-form-label">Categoría:</label>
-        <select class="form-control" formControlName="categoria_id" id="categoria_id">
-          <option *ngFor="let categoria of categorias; let i of index" value="{{categoria.id}}">{{categoria.nombre}}
+        <select
+          class="form-control"
+          formControlName="categoria_id"
+          id="categoria_id"
+        >
+          <option
+            *ngFor="let categoria of categorias; let i; of: index"
+            value="{{ categoria.id }}"
+            >{{ categoria.nombre }}
           </option>
         </select>
         <div class=" modal-body">
           <div [ngxSummernoteView]="form.get('html').value"></div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Editar</button>
-          <small id=" emailHelp" class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
-            *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!form.valid"
+          >
+            Editar
+          </button>
+          <small
+            id=" emailHelp"
+            class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
+            *ngIf="serverErrorMessages"
+            >{{ serverErrorMessages }}</small
+          >
         </div>
       </div>
     </div>

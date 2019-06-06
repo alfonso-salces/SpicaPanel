@@ -1,79 +1,4 @@
 <div class="container">
-<<<<<<< HEAD
-    <div class="cajon-nuevo mb-4">
-        <button class="btn bg-info text-white" data-toggle="modal" data-target="#crear-categoria-modal"><i
-                class="fas fa-plus"> Crear
-                nueva categoría</i></button>
-    </div>
-    <div class="form-group">
-        <input class="form-control mb-2" type="text" placeholder="Buscar por nombre" [(ngModel)]="filterCategory">
-    </div>
-    <table class="table table-bordered table-hover">
-        <thead class="bg-danger text-white">
-            <tr>
-                <!-- <th scope="col" (click)="cambiarOrden()" *ngIf="orden">Id <i class="fas fa-arrow-to-top"></i></th> -->
-                <th scope="col" (click)="cambiarOrden()">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Imagen</th>
-                <th scope="col">Fecha creación</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-        <tbody *ngFor="let categoria of categorias | filterCategory: filterCategory">
-            <tr>
-                <td scope="row">{{categoria.id}}</td>
-                <td scope="row" class="text-truncate" style="max-width: 100px">{{categoria.nombre}}</td>
-                <td scope="row"><img src="{{global.URL_IMG_CATEGORIAS}}/{{categoria.id}}/{{categoria.image}}"
-                        width="50px" height="50px">
-                </td>
-                <td scope="row">{{categoria.createdAt}}</td>
-                <td scope="row">
-                    <a (click)="editarCategoria(categoria, i)" data-toggle="modal"
-                        data-target="#editar-categoria-modal"><i class="fas fa-edit mr-2 text-success"></i></a>
-                    <a (click)="eliminarCategoria(categoria, i)"><i class="fas fa-trash-alt mr-2 text-danger"></i></a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <!-- MODAL EDIT CATEGORY -->
-    <div class="modal fade" id="editar-categoria-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Categoría</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form [formGroup]="EditCategoryForm" (ngSubmit)="onEdit()">
-                        <div class="form-group">
-                            <label for="nombre" class="col-form-label">Nombre:</label>
-                            <input type="text" class="form-control" formControlName="nombre" id="nombre" />
-                        </div>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" formControlName="image" id="image"
-                                    (change)="onFileSelectedEdit($event)">
-                                <label class="custom-file-label" for="image">Selecciona fichero</label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" type="submit"
-                                [disabled]="!EditCategoryForm.valid">Editar</button>
-                        </div>
-                        <small id=" emailHelp"
-                            class="form-text text-danger text-center font-weight-bold text-uppercase mb-3"
-                            *ngIf="serverErrorMessages">{{serverErrorMessages}}</small>
-                        <small id=" emailHelp"
-                            class="form-text text-success text-center font-weight-bold text-uppercase mb-3"
-                            *ngIf="showSuccessMessageCreate">¡Categoría Editada correctamente!</small>
-                    </form>
-                </div>
-=======
   <div class="cajon-nuevo mb-4">
     <button
       class="btn bg-info text-white"
@@ -98,6 +23,7 @@
         <th scope="col" (click)="cambiarOrden()">Id</th>
         <th scope="col">Nombre</th>
         <th scope="col">Imagen</th>
+        <th scope="col">Autor</th>
         <th scope="col">Fecha creación</th>
         <th scope="col">Acciones</th>
       </tr>
@@ -119,6 +45,7 @@
             height="50px"
           />
         </td>
+        <td scope="row">{{ categoria.Usuario.nombre }}</td>
         <td scope="row">{{ categoria.createdAt }}</td>
         <td scope="row">
           <a
@@ -134,7 +61,6 @@
       </tr>
     </tbody>
   </table>
->>>>>>> 6e935bca0ae561c5836e97939fefed291851e796
 
   <!-- MODAL EDIT CATEGORY -->
   <div
