@@ -109,7 +109,20 @@ export class EditarnoticiaComponent implements OnInit {
     this.cargarAutor();
     if (this.validarFormulario) {
       if (this.fichero == null) {
-        this.serverErrorMessages = "Introduce una imagen, por favor.";
+        this.noticiasservice
+          .editNew(this.noticia.id, this.autor.id, this.form.value, null)
+          .subscribe(
+            res => {
+              this.serverErrorMessages = "";
+              this.toastr.success("La noticia ha sido editada correctamente.");
+              this.closeAddExpenseModal.nativeElement.click();
+              this.router.navigateByUrl("/noticias");
+            },
+            error => {
+              console.log(error);
+              this.toastr.error("Ha ocurrido un error.");
+            }
+          );
       } else {
         this.noticiasservice
           .editNew(
@@ -126,6 +139,7 @@ export class EditarnoticiaComponent implements OnInit {
               this.router.navigateByUrl("/noticias");
             },
             error => {
+              console.log(error);
               this.toastr.error("Ha ocurrido un error.");
             }
           );

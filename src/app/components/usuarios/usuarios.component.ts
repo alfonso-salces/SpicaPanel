@@ -160,6 +160,7 @@ export class UsuariosComponent implements OnInit {
             this.showSuccessMessage = true;
             this.UserForm.reset();
             this.limpiarFormulario();
+            this.cargarUsuarios();
             this.toastr.success("¡Usuario editado correctamente!");
           },
           error => {
