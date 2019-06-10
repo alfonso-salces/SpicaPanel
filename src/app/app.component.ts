@@ -23,10 +23,14 @@ export class AppComponent {
     password: new FormControl("")
   });
 
-  constructor(private router: Router, private authservice: AuthService) {
-    this.isLogged();
-    this.isRedactor();
-    this.isModerador();
+  constructor(private router: Router, private authservice: AuthService) {}
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLogged();
+      this.isRedactor();
+      this.isModerador();
+    });
   }
 
   onSubmit() {

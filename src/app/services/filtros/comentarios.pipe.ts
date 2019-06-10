@@ -1,13 +1,12 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: 'filterComment'
+  name: "filterComment"
 })
 export class ComentariosPipe implements PipeTransform {
-
   transform(value: any, arg: any): any {
     // tslint:disable-next-line:curly
-    if (arg === '' || arg.length < 3) return value;
+    if (arg === "" || arg.length < 3) return value;
     const resultComments = [];
     for (const comment of value) {
       if (comment.cuerpo.toLowerCase().indexOf(arg.toLowerCase()) > -1) {
@@ -16,5 +15,4 @@ export class ComentariosPipe implements PipeTransform {
     }
     return resultComments;
   }
-
 }

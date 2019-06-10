@@ -18,7 +18,10 @@ export class UserprofileComponent implements OnInit {
   editProfileForm = new FormGroup({
     nick: new FormControl("", Validators.required),
     email: new FormControl("", Validators.required),
-    password: new FormControl("", Validators.required),
+    password: new FormControl("", [
+      Validators.required,
+      Validators.minLength(8)
+    ]),
     nombre: new FormControl("", Validators.required),
     image: new FormControl()
   });
@@ -45,10 +48,6 @@ export class UserprofileComponent implements OnInit {
   onFileSelected(event) {
     this.fichero = <File>event.target.files[0];
     this.editProfileForm.get("image").setValue(this.fichero, this.fichero.name);
-  }
-
-  handleclick(event) {
-    console.log("te vas a pasar o que");
   }
 
   onSubmit() {
